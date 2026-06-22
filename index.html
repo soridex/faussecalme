@@ -481,6 +481,70 @@
     .placeholder-piece:hover { border-color: var(--w-50); color: var(--w-70); }
     .placeholder-big { font-size: 32px; line-height: 1; }
     .placeholder-text { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+
+    /* WAITLIST */
+    .waitlist {
+      padding: 64px 24px;
+      background: var(--ink);
+      border-top: 1px solid var(--w-10);
+      border-bottom: 1px solid var(--w-10);
+    }
+    @media (min-width: 768px) { .waitlist { padding: 96px 48px; } }
+    .waitlist-inner {
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+    .waitlist h2 {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 600;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin: 14px 0 18px;
+    }
+    .waitlist p {
+      color: var(--w-75);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+    .waitlist-form {
+      display: flex; gap: 8px;
+      max-width: 480px;
+      margin: 0 auto;
+      flex-direction: column;
+    }
+    @media (min-width: 640px) {
+      .waitlist-form { flex-direction: row; }
+    }
+    .waitlist-form input[type="email"] {
+      flex: 1;
+      padding: 14px 18px;
+      background: transparent;
+      border: 1px solid var(--w-25);
+      border-radius: 999px;
+      color: var(--paper);
+      font-size: 15px;
+      transition: border-color .2s;
+    }
+    .waitlist-form input[type="email"]::placeholder { color: var(--w-40); }
+    .waitlist-form input[type="email"]:focus { outline: none; border-color: var(--paper); }
+    .waitlist-form button {
+      padding: 14px 26px;
+      background: var(--paper);
+      color: var(--ink);
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 14px;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+    .waitlist-form button:hover { opacity: .85; }
+    .waitlist-note {
+      font-size: 12px;
+      color: var(--w-50);
+      margin-top: 16px;
+    }
   </style>
 </head>
 <body>
@@ -491,9 +555,9 @@
     </a>
     <ul class="nav-links">
       <li><a href="#collection">Collection</a></li>
-      <li><a href="#creations">Vos créations</a></li>
+      <li><a href="#waitlist">Liste d'attente</a></li>
+      <li><a href="#creations">Sur-mesure</a></li>
       <li><a href="#conseils">Conseils</a></li>
-      <li><a href="#materiel">Matériel</a></li>
       <li><a href="#boutiques">Boutiques</a></li>
     </ul>
     <a href="https://www.tiktok.com/@fausse_calme" target="_blank" class="nav-cta">TikTok ↗</a>
@@ -515,7 +579,7 @@
         </p>
         <div class="hero-ctas">
           <a href="#collection" class="btn btn-primary">Voir la collection</a>
-          <a href="#creations" class="btn btn-ghost">Demander un devis</a>
+          <a href="#waitlist" class="btn btn-ghost">Liste d'attente</a>
         </div>
       </div>
 
@@ -559,7 +623,7 @@
     <div class="pieces-grid">
       <div class="piece">
         <img src="hoodie-fausse-calme.jpg" alt="Hoodie Fausse Calme violet">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">Hoodie · capuche</div>
           <div class="piece-name">Hoodie violet · logo brodé</div>
@@ -568,7 +632,7 @@
 
       <div class="piece">
         <img src="sweat-fausse-calme.jpg" alt="Sweat Fausse Calme aubergine">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">Sweat · ras de cou</div>
           <div class="piece-name">Sweat aubergine · Fausse Calme</div>
@@ -586,7 +650,7 @@
 
       <div class="piece">
         <img src="tshirt-volcan-femme.jpg" alt="T-shirt Volcan femme">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">T-shirt · coupe femme</div>
           <div class="piece-name">T-shirt Volcan · blanc</div>
@@ -595,7 +659,7 @@
 
       <div class="piece">
         <img src="tshirt-volcan-homme.jpg" alt="T-shirt Volcan homme">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">T-shirt · coupe homme</div>
           <div class="piece-name">T-shirt Volcan · blanc</div>
@@ -604,7 +668,7 @@
 
       <div class="piece">
         <img src="sweat-volcan-aubergine.jpg" alt="Sweat Volcan dos aubergine">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">Sweat · capuche</div>
           <div class="piece-name">Volcan · encre aubergine</div>
@@ -613,7 +677,7 @@
 
       <div class="piece">
         <img src="sweat-volcan-noir-blanc.jpg" alt="Sweat Volcan dos noir et blanc">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">Sweat · capuche</div>
           <div class="piece-name">Volcan · encre claire</div>
@@ -622,7 +686,7 @@
 
       <div class="piece">
         <img src="sweat-volcan-plie.jpg" alt="Sweat Volcan plié">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">Sweat · pull</div>
           <div class="piece-name">Volcan · noir &amp; blanc</div>
@@ -631,7 +695,7 @@
 
       <div class="piece">
         <img src="mug-volcan-noir.jpg" alt="Mug Volcan noir">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">Mug · 33cl</div>
           <div class="piece-name">Volcan · édition encre</div>
@@ -640,12 +704,32 @@
 
       <div class="piece">
         <img src="mug-volcan-blanc.jpg" alt="Mug Volcan blanc">
-        <span class="piece-status">Sur commande</span>
+        <span class="piece-status">Bientôt</span>
         <div class="piece-info">
           <div class="piece-label">Mug · 33cl</div>
           <div class="piece-name">Volcan · porcelaine</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section class="waitlist" id="waitlist">
+    <div class="waitlist-inner">
+      <div class="eyebrow">Liste d'attente</div>
+      <h2>La collection arrive,<br><span class="f-serif-i" style="color: var(--w-70);">silencieusement.</span></h2>
+      <p>
+        Inscris-toi pour être prévenue en avant-première à l'ouverture des ventes.
+        Pas de spam, pas de pression — juste un mail le jour J,
+        avec un code promo pour les premières inscrites.
+      </p>
+      <form class="waitlist-form" action="https://formspree.io/f/mjgqvebj" method="POST">
+        <input type="hidden" name="_subject" value="🔔 Nouvelle inscription liste d'attente">
+        <input type="hidden" name="type" value="Liste d'attente collection">
+        <input type="email" name="email" placeholder="ton@email.fr" required>
+        <button type="submit">Me prévenir</button>
+      </form>
+      <p class="waitlist-note">Tu peux te désinscrire à tout moment, c'est promis.</p>
     </div>
   </section>
 
