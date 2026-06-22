@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fausse Calme — Carnet d'atelier</title>
+  <meta name="description" content="Créations Cricut, conseils, astuces et bonnes adresses. Fait main par Fausse Calme.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=Caveat+Brush&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="logo.png">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -18,6 +20,7 @@
       --w-70: rgba(255,255,255,.7);
       --w-60: rgba(255,255,255,.6);
       --w-50: rgba(255,255,255,.5);
+      --w-40: rgba(255,255,255,.4);
       --w-30: rgba(255,255,255,.3);
       --w-25: rgba(255,255,255,.25);
       --w-15: rgba(255,255,255,.15);
@@ -33,10 +36,12 @@
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; cursor: pointer; }
-    ul { list-style: none; }
+    ul, ol { list-style: none; }
     img, svg { display: block; max-width: 100%; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    input, textarea, select { font: inherit; color: inherit; }
 
-    .f-display { font-family: 'Bricolage Grotesque', sans-serif; font-variation-settings: 'wdth' 100; }
+    .f-display { font-family: 'Bricolage Grotesque', sans-serif; }
     .f-display-wide { font-family: 'Bricolage Grotesque', sans-serif; font-variation-settings: 'wdth' 120; }
     .f-serif-i { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
     .f-brush { font-family: 'Caveat Brush', cursive; font-weight: 400; }
@@ -51,18 +56,19 @@
     nav {
       position: sticky; top: 0; z-index: 50;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 24px;
-      background: rgba(51,3,39,.9);
+      padding: 16px 24px;
+      background: rgba(51,3,39,.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--w-15);
     }
     @media (min-width: 768px) { nav { padding: 20px 48px; } }
     .brand { display: flex; align-items: center; gap: 12px; }
-    .brand img { height: 56px; width: auto; }
-    .nav-links { display: none; gap: 32px; font-size: 14px; }
+    .brand img { height: 48px; width: auto; }
+    @media (min-width: 768px) { .brand img { height: 56px; } }
+    .nav-links { display: none; gap: 28px; font-size: 14px; }
     .nav-links li { cursor: pointer; transition: opacity .2s; }
     .nav-links li:hover { opacity: .6; }
-    @media (min-width: 768px) { .nav-links { display: flex; } }
+    @media (min-width: 1024px) { .nav-links { display: flex; } }
     .nav-cta {
       font-size: 14px;
       border: 1px solid var(--paper);
@@ -73,7 +79,7 @@
     .nav-cta:hover { background: var(--paper); color: var(--ink); }
 
     /* HERO */
-    .hero { padding: 64px 24px 80px; position: relative; }
+    .hero { padding: 56px 24px 80px; }
     @media (min-width: 768px) { .hero { padding: 96px 48px 128px; } }
     .hero-grid {
       display: grid; grid-template-columns: 1fr; gap: 32px; align-items: end;
@@ -86,22 +92,21 @@
     .hero h1 {
       font-family: 'Bricolage Grotesque';
       font-variation-settings: 'wght' 600, 'wdth' 95;
-      font-size: 14vw;
+      font-size: clamp(56px, 13vw, 130px);
       line-height: 0.85;
       letter-spacing: -0.04em;
-      margin: 32px 0;
+      margin: 24px 0;
     }
-    @media (min-width: 768px) { .hero h1 { font-size: 8vw; } }
     .hero h1 .softer { color: var(--w-70); }
     .hero p.intro {
-      font-size: 18px; max-width: 520px;
+      font-size: 17px; max-width: 520px;
       color: var(--w-80); line-height: 1.7;
     }
-    @media (min-width: 768px) { .hero p.intro { font-size: 20px; } }
-    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+    @media (min-width: 768px) { .hero p.intro { font-size: 19px; } }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
     .btn {
-      display: inline-flex; align-items: center; gap: 12px;
-      padding: 12px 24px; border-radius: 999px;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 22px; border-radius: 999px;
       font-size: 14px; transition: all .2s;
     }
     .btn-primary { background: var(--paper); color: var(--ink); font-weight: 500; }
@@ -109,7 +114,6 @@
     .btn-ghost { border: 1px solid var(--w-30); color: var(--paper); }
     .btn-ghost:hover { border-color: var(--paper); }
 
-    /* Hero side image */
     .hero-card {
       aspect-ratio: 4/5;
       border-radius: 2px;
@@ -118,47 +122,43 @@
     }
     @keyframes drift {
       0%, 100% { transform: translate(0,0); }
-      50% { transform: translate(-8px, 6px); }
+      50% { transform: translate(-6px, 4px); }
     }
-    .hero-card img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
+    .hero-card img { width: 100%; height: 100%; object-fit: cover; }
     .hero-card-overlay {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; justify-content: space-between;
-      padding: 24px;
-      pointer-events: none;
+      padding: 20px; pointer-events: none;
     }
-    .hero-card-overlay .top { display: flex; justify-content: space-between; align-items: start; }
     .hero-card-meta {
       font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
       color: var(--w-90);
       background: rgba(51,3,39,.5);
       backdrop-filter: blur(4px);
-      padding: 6px 12px;
-      border-radius: 999px;
+      padding: 5px 12px; border-radius: 999px;
+      align-self: flex-start;
     }
-    .hero-side-cap { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--w-50); margin-top: 16px; text-align: right; }
+    .hero-side-cap { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--w-50); margin-top: 12px; text-align: right; }
 
     /* Ticker */
     .ticker {
-      margin-top: 80px;
+      margin-top: 64px;
       border-top: 1px solid var(--w-20);
       border-bottom: 1px solid var(--w-20);
-      padding: 20px 0;
+      padding: 18px 0;
       overflow: hidden;
     }
-    @media (min-width: 768px) { .ticker { margin-top: 128px; } }
+    @media (min-width: 768px) { .ticker { margin-top: 112px; } }
     .ticker-row {
-      display: flex; gap: 48px;
+      display: flex; gap: 40px;
       font-family: 'Bricolage Grotesque';
       font-variation-settings: 'wdth' 120;
-      font-size: 24px;
+      font-size: 22px;
       letter-spacing: -0.02em;
       color: var(--w-75);
       white-space: nowrap;
     }
-    @media (min-width: 768px) { .ticker-row { font-size: 30px; } }
+    @media (min-width: 768px) { .ticker-row { font-size: 28px; } }
     .ticker-row .dot { color: var(--w-30); }
 
     /* SECTIONS */
@@ -167,226 +167,282 @@
       border-top: 1px solid var(--w-10);
       border-bottom: 1px solid var(--w-10);
     }
-    section { padding: 80px 24px; }
-    @media (min-width: 768px) { section { padding: 112px 48px; } }
-
-    .sec-head { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
-    @media (min-width: 768px) {
-      .sec-head { grid-template-columns: repeat(12, 1fr); align-items: end; }
-    }
+    section { padding: 64px 24px; scroll-margin-top: 80px; }
+    @media (min-width: 768px) { section { padding: 96px 48px; } }
+    .sec-head { margin-bottom: 48px; }
+    @media (min-width: 768px) { .sec-head { margin-bottom: 64px; } }
     .sec-head h2 {
       font-family: 'Bricolage Grotesque';
       font-variation-settings: 'wght' 600;
-      font-size: clamp(40px, 7vw, 80px);
+      font-size: clamp(36px, 6.5vw, 72px);
       line-height: 0.9;
       letter-spacing: -0.04em;
+      margin-top: 14px;
+    }
+    .sec-intro {
+      max-width: 520px; color: var(--w-75);
+      font-size: 17px; line-height: 1.7;
+      margin-top: 20px;
     }
 
-    /* PILIERS */
-    .piliers-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-    @media (min-width: 768px) { .piliers-grid { grid-template-columns: repeat(4, 1fr); } }
-    .pilier {
-      border: 1px solid var(--w-25);
+    /* COLLECTIONS */
+    .collection { margin-bottom: 72px; }
+    .collection:last-child { margin-bottom: 0; }
+    .collection-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+    .collection-title {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 500;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .collection-meta { font-size: 13px; color: var(--w-60); letter-spacing: 0.05em; }
+    .collection-desc { color: var(--w-70); max-width: 600px; margin-bottom: 28px; font-size: 16px; line-height: 1.6; }
+    .collection-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 640px) { .collection-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .collection-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .piece {
       border-radius: 2px;
-      padding: 24px;
+      position: relative; overflow: hidden;
       cursor: pointer;
-      transition: all .3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: transform .4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      aspect-ratio: 4/5;
     }
-    .pilier:hover {
-      transform: translateY(-4px);
-      border-color: var(--paper);
-      background: var(--w-05);
+    .piece:hover { transform: translateY(-4px); }
+    .piece img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .piece:hover img { transform: scale(1.04); }
+    .piece::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(31,1,24,.9) 0%, rgba(31,1,24,0) 50%);
+      pointer-events: none;
     }
-    .pilier-num { font-size: 12px; letter-spacing: 0.3em; color: var(--w-60); margin-bottom: 32px; }
-    .pilier-titre {
+    .piece-info { position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 2; }
+    .piece-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--w-70); }
+    .piece-name {
       font-family: 'Bricolage Grotesque';
       font-variation-settings: 'wght' 500;
-      font-size: 30px;
-      margin-bottom: 8px;
+      font-size: 16px; letter-spacing: -0.01em;
+      margin-top: 2px;
     }
-    .pilier-sub { font-size: 14px; color: var(--w-65); line-height: 1.6; }
-    .pilier-link { font-size: 14px; margin-top: 32px; display: flex; align-items: center; gap: 8px; }
-    .pilier:hover .pilier-arrow { transform: translateX(4px); }
-    .pilier-arrow { transition: transform .3s; }
-
-    /* DIY */
-    .diy-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    @media (min-width: 768px) { .diy-grid { grid-template-columns: repeat(12, 1fr); } }
-    .diy-feature { grid-column: span 7; cursor: pointer; }
-    .diy-list { grid-column: span 5; display: flex; flex-direction: column; gap: 24px; }
-    .diy-feature-img {
-      aspect-ratio: 16/11;
+    .piece-status {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+      background: rgba(31,1,24,.6); backdrop-filter: blur(4px);
+      padding: 4px 10px; border-radius: 999px;
+    }
+    .upcoming {
+      aspect-ratio: 4/5;
+      border: 1.5px dashed var(--w-25);
       border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      color: var(--w-50);
+      transition: border-color .3s, color .3s;
     }
-    .diy-feature-img img { width: 100%; height: 100%; object-fit: cover; }
-    .pill {
-      position: absolute; top: 20px; left: 20px;
-      background: var(--paper); color: var(--ink);
-      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 999px;
-    }
-    .diy-cat { font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--w-60); margin-bottom: 8px; }
-    .diy-feature h3 {
-      font-family: 'Bricolage Grotesque';
-      font-variation-settings: 'wght' 500;
-      font-size: 32px;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-    @media (min-width: 768px) { .diy-feature h3 { font-size: 36px; } }
-    .diy-feature p { color: var(--w-70); max-width: 520px; }
+    .upcoming:hover { border-color: var(--w-50); color: var(--w-70); }
+    .upcoming-big { font-size: 32px; line-height: 1; }
+    .upcoming-text { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
 
-    .diy-item {
-      display: flex; gap: 20px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--w-15);
-      cursor: pointer;
-    }
-    .diy-list > .diy-item:last-child { border-bottom: none; }
-    .diy-thumb {
-      width: 96px; height: 96px; flex-shrink: 0;
-      border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-    }
-    @media (min-width: 768px) { .diy-thumb { width: 128px; height: 128px; } }
-    .diy-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .diy-item h4 {
-      font-family: 'Bricolage Grotesque';
-      font-variation-settings: 'wght' 500;
-      font-size: 20px;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-      margin-bottom: 8px;
-      transition: opacity .2s;
-    }
-    @media (min-width: 768px) { .diy-item h4 { font-size: 24px; } }
-    .diy-item:hover h4 { opacity: 0.7; }
-    .diy-meta { font-size: 11px; color: var(--w-55); }
-
-    /* Atelier */
-    .atelier-bg { position: relative; overflow: hidden; }
-    .atelier-watermark {
-      position: absolute; top: 40px; right: 40px;
-      font-family: 'Caveat Brush';
-      color: var(--w-10);
-      font-size: 12rem; line-height: 1;
-      user-select: none; pointer-events: none;
-      display: none;
-    }
-    @media (min-width: 768px) { .atelier-watermark { display: block; } }
-    .atelier h2 {
+    /* SUR-MESURE */
+    .devis-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+    @media (min-width: 1024px) { .devis-grid { grid-template-columns: 1fr 1.5fr; gap: 64px; } }
+    .devis-side .eyebrow { margin-bottom: 14px; }
+    .devis-side h2 {
       font-family: 'Bricolage Grotesque';
       font-variation-settings: 'wght' 600;
-      font-size: clamp(40px, 7vw, 90px);
+      font-size: clamp(36px, 6vw, 68px);
       line-height: 0.9;
       letter-spacing: -0.04em;
-      max-width: 800px;
       margin-bottom: 24px;
-      margin-top: 16px;
     }
-    .atelier > .relative { position: relative; }
-    .atelier-intro { max-width: 520px; color: var(--w-70); font-size: 18px; margin-bottom: 56px; }
+    .devis-side p { color: var(--w-75); font-size: 16px; line-height: 1.7; margin-bottom: 16px; }
+    .devis-side ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--w-10);
+      color: var(--w-80);
+      font-size: 14px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .devis-side ul li::before { content: '↳'; color: var(--w-50); }
 
-    .shop-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    @media (min-width: 768px) { .shop-grid { grid-template-columns: repeat(3, 1fr); } }
-    .product {
-      border: 1px solid var(--w-25);
+    form.devis {
+      background: var(--w-05);
+      border: 1px solid var(--w-15);
       border-radius: 2px;
       padding: 24px;
+    }
+    @media (min-width: 768px) { form.devis { padding: 36px; } }
+    .field { margin-bottom: 22px; }
+    .field label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--w-70);
+      margin-bottom: 8px;
+    }
+    .field input[type="text"],
+    .field input[type="email"],
+    .field input[type="date"],
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      background: transparent;
+      border: 1px solid var(--w-25);
+      border-radius: 2px;
+      color: var(--paper);
+      font-size: 15px;
+      transition: border-color .2s;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: var(--w-40); }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus { outline: none; border-color: var(--paper); }
+    .field textarea { resize: vertical; min-height: 100px; }
+    .field-row { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
+
+    /* Radio group for project types */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      position: relative;
+      padding: 8px 16px;
+      border: 1px solid var(--w-25);
+      border-radius: 999px;
+      font-size: 13px;
       cursor: pointer;
+      transition: all .2s;
+    }
+    .chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .chip:has(input:checked) {
+      background: var(--paper); color: var(--ink); border-color: var(--paper);
+    }
+
+    button.submit {
+      background: var(--paper);
+      color: var(--ink);
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 15px;
+      transition: opacity .2s;
+      width: 100%;
+    }
+    button.submit:hover { opacity: .85; }
+    @media (min-width: 640px) { button.submit { width: auto; } }
+    .form-note { font-size: 12px; color: var(--w-50); margin-top: 14px; line-height: 1.5; }
+
+    /* CONSEILS & ASTUCES */
+    .articles-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 640px) { .articles-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .articles-grid { grid-template-columns: repeat(3, 1fr); } }
+    .article-card {
+      border: 1px solid var(--w-15);
+      border-radius: 2px;
+      padding: 28px 24px;
       transition: all .3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      cursor: pointer;
+      display: flex; flex-direction: column;
+      min-height: 280px;
+    }
+    .article-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--w-50);
+      background: var(--w-05);
+    }
+    .article-meta { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--w-60); margin-bottom: 16px; }
+    .article-title {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 500;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .article-excerpt { color: var(--w-70); font-size: 14px; line-height: 1.6; flex-grow: 1; }
+    .article-link { margin-top: 20px; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+    .article-card:hover .article-arrow { transform: translateX(4px); }
+    .article-arrow { transition: transform .3s; }
+
+    /* MATÉRIEL */
+    .shop-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 640px) { .shop-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .shop-grid { grid-template-columns: repeat(3, 1fr); } }
+    .product {
+      border: 1px solid var(--w-20);
+      border-radius: 2px;
+      padding: 24px;
+      transition: all .3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: block;
     }
     .product:hover {
       transform: translateY(-4px);
       border-color: var(--paper);
       background: var(--w-05);
     }
-    .product-img {
-      aspect-ratio: 4/3;
-      border: 1px solid var(--w-20);
-      border-radius: 2px;
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .product-cat {
-      position: absolute; top: 12px; left: 12px;
-      font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    .product-tag {
+      display: inline-block;
+      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
       color: var(--w-80);
+      border: 1px solid var(--w-25);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 18px;
     }
-    .product-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
     .product-name {
       font-family: 'Bricolage Grotesque';
       font-variation-settings: 'wght' 500;
-      font-size: 20px; letter-spacing: -0.01em;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
     }
-    .product-prix { font-family: 'Instrument Serif'; font-style: italic; color: var(--w-85); font-size: 20px; }
     .product-shop { font-size: 12px; color: var(--w-55); margin-bottom: 16px; }
-    .product-cta { font-size: 14px; display: flex; align-items: center; gap: 8px; }
-    .product:hover .product-arrow { transform: translateX(4px); }
+    .product-desc { font-size: 14px; color: var(--w-75); line-height: 1.6; margin-bottom: 18px; }
+    .product-cta { font-size: 13px; display: flex; align-items: center; gap: 6px; color: var(--w-90); }
+    .product:hover .product-arrow { transform: translateX(2px); }
     .product-arrow { transition: transform .3s; }
-    .affiliate-note { margin-top: 40px; font-size: 12px; color: var(--w-45); max-width: 520px; }
 
-    /* CRÉATIONS */
-    .creations-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-    @media (min-width: 768px) { .creations-grid { grid-template-columns: repeat(6, 1fr); } }
-    .creation {
+    .affiliate-note { margin-top: 36px; font-size: 12px; color: var(--w-45); max-width: 560px; line-height: 1.6; }
+
+    /* BOUTIQUES CHOUCHOU */
+    .shops-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 640px) { .shops-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .shops-grid { grid-template-columns: repeat(3, 1fr); } }
+    .shop {
+      border: 1px solid var(--w-15);
       border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform .4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding: 20px 22px;
+      transition: all .3s;
+      display: flex; flex-direction: column;
+      gap: 8px;
+      min-height: 160px;
     }
-    @media (min-width: 768px) { .creation { grid-column: span 2; } }
-    .creation:hover { transform: translateY(-4px); }
-    .creation img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .6s ease;
+    .shop:hover {
+      border-color: var(--w-50);
+      background: var(--w-05);
+      transform: translateY(-2px);
     }
-    .creation:hover img { transform: scale(1.04); }
-    .creation::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(31,1,24,.85) 0%, rgba(31,1,24,0) 50%);
-      pointer-events: none;
+    .shop-type {
+      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--w-50);
     }
-    .creation-no { position: absolute; top: 16px; left: 16px; font-size: 10px; color: var(--paper); letter-spacing: .15em; z-index: 2; background: rgba(31,1,24,.55); backdrop-filter: blur(4px); padding: 4px 8px; border-radius: 2px; }
-    .creation-foot { position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 2; display: flex; align-items: end; justify-content: space-between; gap: 12px; }
-    .creation-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--paper); }
-    .creation-name {
+    .shop-name {
       font-family: 'Bricolage Grotesque';
       font-variation-settings: 'wght' 500;
-      font-size: 16px;
-      letter-spacing: -0.01em;
-      color: var(--paper);
-      margin-top: 4px;
-      line-height: 1.2;
-    }
-    .creation-link { font-family: 'Instrument Serif'; font-style: italic; font-size: 14px; opacity: 0; transition: opacity .2s; color: var(--paper); }
-    .creation:hover .creation-link { opacity: 1; }
-    .h-80 { height: 380px; } .h-72 { height: 340px; } .h-64 { height: 300px; }
-    @media (max-width: 767px) {
-      .h-80, .h-72, .h-64 { height: 400px; }
-    }
-
-    /* MOT */
-    .mot-bloc { max-width: 768px; margin: 0 auto; text-align: center; }
-    .mot-bloc p {
-      font-family: 'Bricolage Grotesque';
-      font-variation-settings: 'wght' 400;
-      font-size: clamp(24px, 4vw, 48px);
-      line-height: 1.2;
+      font-size: 22px;
+      line-height: 1.1;
       letter-spacing: -0.02em;
-      margin-bottom: 40px;
     }
-    .mot-sign { font-family: 'Caveat Brush'; font-size: 36px; margin-bottom: 8px; }
-    .mot-loc { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--w-55); }
+    .shop-desc { font-size: 13px; color: var(--w-65); line-height: 1.5; flex-grow: 1; }
+    .shop-link { font-size: 12px; color: var(--w-80); display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+    .shop:hover .shop-arrow { transform: translateX(2px); }
+    .shop-arrow { transition: transform .3s; }
 
-    /* CTA TikTok */
+    /* CTA TIKTOK */
     .cta-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
     @media (min-width: 768px) { .cta-grid { grid-template-columns: 1fr 1fr; } }
     .cta-grid h2 {
@@ -409,13 +465,13 @@
       color: var(--w-65);
       font-size: 14px;
     }
-    @media (min-width: 768px) { footer { padding: 48px 48px; } }
+    @media (min-width: 768px) { footer { padding: 56px 48px; } }
     .foot-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
     @media (min-width: 768px) { .foot-grid { grid-template-columns: repeat(12, 1fr); } }
     .foot-brand { grid-column: span 5; }
     .foot-col { grid-column: span 2; }
     .foot-col:last-of-type { grid-column: span 3; }
-    .foot-brand img { width: 200px; height: auto; margin-bottom: 12px; }
+    .foot-brand img { width: 180px; height: auto; margin-bottom: 12px; }
     .foot-brand .meta { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; }
     .foot-title { color: var(--paper); margin-bottom: 12px; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; }
     .foot-col li { padding: 4px 0; cursor: pointer; }
@@ -426,21 +482,21 @@
 <body>
 
   <nav>
-    <div class="brand">
+    <a href="#top" class="brand">
       <img src="logo.png" alt="Fausse Calme">
-    </div>
+    </a>
     <ul class="nav-links">
-      <li>DIY</li>
-      <li>L'atelier</li>
-      <li>Créations</li>
-      <li>Bons plans</li>
-      <li>À propos</li>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#sur-mesure">Sur-mesure</a></li>
+      <li><a href="#conseils">Conseils</a></li>
+      <li><a href="#materiel">Matériel</a></li>
+      <li><a href="#boutiques">Boutiques</a></li>
     </ul>
-    <a class="nav-cta">TikTok ↗</a>
+    <a href="https://www.tiktok.com/@fausse_calme" target="_blank" class="nav-cta">TikTok ↗</a>
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="top">
     <div class="hero-grid">
       <div class="hero-main">
         <div class="eyebrow">Carnet d'atelier · Maison fondée en 2024</div>
@@ -450,288 +506,399 @@
           <span class="f-serif-i softer">à voix basse.</span>
         </h1>
         <p class="intro">
-          DIY honnêtes, tests Cricut, et les créations qu'on garde après les avoir essayées.
-          Tout ce que j'aurais aimé trouver quand j'ai déballé ma machine.
+          Créations Cricut, tests, astuces et bonnes adresses.
+          Tout ce que j'aurais aimé trouver quand j'ai déballé ma machine —
+          et tout ce que je fabrique aujourd'hui.
         </p>
         <div class="hero-ctas">
-          <a class="btn btn-primary">Voir mes créations</a>
-          <a class="btn btn-ghost">Commencer par les bases</a>
+          <a href="#collections" class="btn btn-primary">Voir mes collections</a>
+          <a href="#sur-mesure" class="btn btn-ghost">Demander un devis</a>
         </div>
       </div>
 
       <div class="hero-side">
         <div class="hero-card">
-          <img src="mug-volcan-noir.jpg" alt="Mug Volcan — édition noire">
+          <img src="mug-volcan-noir.jpg" alt="Mug Volcan édition encre">
           <div class="hero-card-overlay">
-            <div class="top">
-              <span class="hero-card-meta">Nº 01 · Pièce</span>
-            </div>
+            <span class="hero-card-meta">Collection Volcan</span>
           </div>
         </div>
-        <div class="hero-side-cap">Mug Volcan · édition encre</div>
+        <div class="hero-side-cap">Mug Volcan · pièce</div>
       </div>
     </div>
 
     <div class="ticker">
       <div class="ticker-row">
-        <span>Tutos sans bullshit</span>
+        <span>Créations fait main</span>
+        <span class="dot">·</span>
+        <span class="f-serif-i">Sur-mesure</span>
+        <span class="dot">·</span>
+        <span>Conseils Cricut</span>
         <span class="dot">·</span>
         <span class="f-serif-i">Bons plans français</span>
         <span class="dot">·</span>
         <span>Tests honnêtes</span>
-        <span class="dot">·</span>
-        <span class="f-serif-i">Le matériel testé</span>
-        <span class="dot">·</span>
-        <span>Lexique Cricut</span>
       </div>
     </div>
   </section>
 
-  <!-- PILIERS -->
-  <section class="deep">
+  <!-- COLLECTIONS -->
+  <section class="deep" id="collections">
     <div class="sec-head">
-      <div style="grid-column: span 4;">
-        <div class="eyebrow">Au programme</div>
-        <h2 style="margin-top: 16px;">Quatre piliers,<br><span class="f-serif-i" style="color: var(--w-70);">une seule envie.</span></h2>
-      </div>
-      <div style="grid-column: span 7; grid-column-start: 6;">
-        <p style="color: var(--w-75); font-size: 18px; line-height: 1.7; max-width: 420px;">
-          Fausse Calme est un carnet de bord pour celles qui découpent, customisent, récupèrent.
-          Pas un blog d'experts. Un atelier ouvert.
-        </p>
-      </div>
+      <div class="eyebrow">Nº 01 · Collections</div>
+      <h2>Mes créations,<br><span class="f-serif-i" style="color: var(--w-70);">rangées par thème.</span></h2>
+      <p class="sec-intro">
+        Chaque collection est un univers : un motif, une émotion, une histoire.
+        Pièces fait main, parfois uniques, parfois tirées à très peu d'exemplaires.
+      </p>
     </div>
 
-    <div class="piliers-grid">
-      <div class="pilier">
-        <div class="pilier-num">01</div>
-        <div class="pilier-titre">DIY</div>
-        <div class="pilier-sub">Tutos courts, du brouillon au résultat</div>
-        <div class="pilier-link">Explorer <span class="pilier-arrow">→</span></div>
+    <!-- Collection Volcan -->
+    <div class="collection">
+      <div class="collection-head">
+        <div>
+          <div class="collection-meta">Capsule signature · 2024</div>
+          <div class="collection-title">Volcan.</div>
+        </div>
+        <a href="#sur-mesure" class="btn btn-ghost">Commander une pièce</a>
       </div>
-      <div class="pilier">
-        <div class="pilier-num">02</div>
-        <div class="pilier-titre">L'atelier</div>
-        <div class="pilier-sub">Le matériel que j'utilise vraiment</div>
-        <div class="pilier-link">Explorer <span class="pilier-arrow">→</span></div>
-      </div>
-      <div class="pilier">
-        <div class="pilier-num">03</div>
-        <div class="pilier-titre">Créations</div>
-        <div class="pilier-sub">Mes pièces — certaines sont à vendre</div>
-        <div class="pilier-link">Explorer <span class="pilier-arrow">→</span></div>
-      </div>
-      <div class="pilier">
-        <div class="pilier-num">04</div>
-        <div class="pilier-titre">Bons plans</div>
-        <div class="pilier-sub">Où acheter pas cher en France</div>
-        <div class="pilier-link">Explorer <span class="pilier-arrow">→</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DERNIERS DIY -->
-  <section>
-    <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 64px;">
-      <div>
-        <div class="eyebrow">Derniers carnets</div>
-        <h2 class="f-display" style="font-variation-settings: 'wght' 600; font-size: clamp(40px, 6vw, 64px); line-height: 0.9; letter-spacing: -0.04em; margin-top: 16px;">
-          On a fait <span class="f-serif-i" style="color: var(--w-70);">quoi</span><br>
-          cette semaine ?
-        </h2>
-      </div>
-    </div>
-
-    <div class="diy-grid">
-      <div class="diy-feature">
-        <div class="diy-feature-img">
+      <p class="collection-desc">
+        Le motif fondateur de la maison Fausse Calme. Un volcan qui paraît endormi
+        mais bouillonne en dessous — comme un calme qu'on porte sur soi.
+      </p>
+      <div class="collection-grid">
+        <div class="piece">
           <img src="sweat-volcan-aubergine.jpg" alt="Sweat Volcan édition aubergine">
-          <span class="pill">Pièce · prototype</span>
+          <span class="piece-status">Sur commande</span>
+          <div class="piece-info">
+            <div class="piece-label">Sweat · capuche</div>
+            <div class="piece-name">Volcan · encre aubergine</div>
+          </div>
         </div>
-        <div class="diy-cat">Textile · capsule maison</div>
-        <h3>Sweat Volcan, édition aubergine,<br><span class="f-serif-i" style="color: var(--w-70);">l'éruption silencieuse.</span></h3>
-        <p>Premier prototype de la capsule "Fausse Calme". Encre aubergine sur sweat noir,
-        sérigraphié main. Tirage limité, prochain drop en préparation.</p>
+        <div class="piece">
+          <img src="sweat-volcan-noir-blanc.jpg" alt="Sweat Volcan noir et blanc">
+          <span class="piece-status">Sur commande</span>
+          <div class="piece-info">
+            <div class="piece-label">Sweat · capuche</div>
+            <div class="piece-name">Volcan · encre claire</div>
+          </div>
+        </div>
+        <div class="piece">
+          <img src="mug-volcan-noir.jpg" alt="Mug Volcan noir">
+          <span class="piece-status">Sur commande</span>
+          <div class="piece-info">
+            <div class="piece-label">Mug · 33cl</div>
+            <div class="piece-name">Volcan · édition encre</div>
+          </div>
+        </div>
+        <div class="piece">
+          <img src="mug-volcan-blanc.jpg" alt="Mug Volcan blanc">
+          <span class="piece-status">Sur commande</span>
+          <div class="piece-info">
+            <div class="piece-label">Mug · 33cl</div>
+            <div class="piece-name">Volcan · porcelaine</div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="diy-list">
-        <div class="diy-item">
-          <div class="diy-thumb"><img src="mug-volcan-noir.jpg" alt="Mug Volcan noir"></div>
-          <div>
-            <div class="diy-cat">Pièce · Mug</div>
-            <h4>Mug Volcan — édition encre</h4>
-            <div class="diy-meta">Prototype · 1 ex. dispo</div>
+    <!-- Collection Dragon -->
+    <div class="collection">
+      <div class="collection-head">
+        <div>
+          <div class="collection-meta">Pop culture · 2024</div>
+          <div class="collection-title">Dragon &amp; co.</div>
+        </div>
+        <a href="#sur-mesure" class="btn btn-ghost">Commander une pièce</a>
+      </div>
+      <p class="collection-desc">
+        Hommages aux univers qu'on aime, customisés au flex sur sweat noir.
+        Pièces uniques à la demande — propose ton perso, je le fabrique.
+      </p>
+      <div class="collection-grid">
+        <div class="piece">
+          <img src="sweat-dragon.jpg" alt="Sweat Dragon">
+          <span class="piece-status">Sur commande</span>
+          <div class="piece-info">
+            <div class="piece-label">Sweat · piece unique</div>
+            <div class="piece-name">Le Dragon &amp; le code</div>
           </div>
         </div>
-        <div class="diy-item">
-          <div class="diy-thumb"><img src="sweat-volcan-noir-blanc.jpg" alt="Sweat volcan noir et blanc"></div>
-          <div>
-            <div class="diy-cat">Textile</div>
-            <h4>Sweat Volcan — version contrastée</h4>
-            <div class="diy-meta">Variant noir &amp; blanc</div>
-          </div>
+        <div class="upcoming">
+          <div class="upcoming-big">+</div>
+          <div class="upcoming-text">À venir</div>
         </div>
-        <div class="diy-item">
-          <div class="diy-thumb"><img src="mug-volcan-blanc.jpg" alt="Mug Volcan blanc"></div>
-          <div>
-            <div class="diy-cat">Pièce · Mug</div>
-            <h4>Mug Volcan — porcelaine claire</h4>
-            <div class="diy-meta">Encre noire sur émail</div>
-          </div>
+        <div class="upcoming">
+          <div class="upcoming-big">+</div>
+          <div class="upcoming-text">À venir</div>
+        </div>
+        <div class="upcoming">
+          <div class="upcoming-big">+</div>
+          <div class="upcoming-text">À venir</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ATELIER -->
-  <section class="deep atelier atelier-bg">
-    <div class="atelier-watermark">atelier</div>
-    <div class="relative">
-      <div class="eyebrow">Nº 02 · L'atelier</div>
-      <h2>
-        Le matériel<br>
-        que <span class="f-serif-i" style="color: var(--w-70);">je rachèterais</span><br>
-        les yeux fermés.
-      </h2>
-      <p class="atelier-intro">
-        Aucun produit ici n'est sponsorisé. Si c'est dans la liste, c'est qu'il est passé par mes mains
-        et qu'il a survécu à mon agacement.
-      </p>
-
-      <div class="shop-grid">
-        <div class="product">
-          <div class="product-img"><span class="product-cat">Indispensable</span></div>
-          <div class="product-row">
-            <h4 class="product-name">Crochet d'échenillage</h4>
-            <span class="product-prix">€8</span>
-          </div>
-          <div class="product-shop">Cricut · via Amazon</div>
-          <div class="product-cta">Voir où l'acheter <span class="product-arrow">↗</span></div>
-        </div>
-        <div class="product">
-          <div class="product-img"><span class="product-cat">Le bon plan</span></div>
-          <div class="product-row">
-            <h4 class="product-name">Vinyle flex 30×50 cm</h4>
-            <span class="product-prix">€4,50</span>
-          </div>
-          <div class="product-shop">Action · en magasin</div>
-          <div class="product-cta">Voir où l'acheter <span class="product-arrow">↗</span></div>
-        </div>
-        <div class="product">
-          <div class="product-img"><span class="product-cat">Pour débuter</span></div>
-          <div class="product-row">
-            <h4 class="product-name">Tapis vert StandardGrip</h4>
-            <span class="product-prix">€12</span>
-          </div>
-          <div class="product-shop">Cricut Joy / Maker</div>
-          <div class="product-cta">Voir où l'acheter <span class="product-arrow">↗</span></div>
-        </div>
-      </div>
-
-      <p class="affiliate-note">
-        ↳ Certains liens sont affiliés. Une petite commission tombe si tu achètes via mon lien,
-        sans rien changer pour toi. C'est ce qui fait vivre le site.
-      </p>
-    </div>
-  </section>
-
-  <!-- CRÉATIONS -->
-  <section>
-    <div class="sec-head">
-      <div style="grid-column: span 7;">
-        <div class="eyebrow">Nº 03 · L'autre côté du calme</div>
-        <h2 style="margin-top: 16px;">Mes <span class="f-serif-i" style="color: var(--w-70);">créations.</span></h2>
-      </div>
-      <div style="grid-column: span 4; grid-column-start: 9;">
-        <p style="color: var(--w-75);">
-          La capsule "Volcan" — premier chapitre de la maison Fausse Calme.
-          Pièces tirées à très peu d'exemplaires, parfois uniques.
-          Le calme apparent, l'éruption en dessous.
+  <!-- SUR-MESURE -->
+  <section id="sur-mesure">
+    <div class="devis-grid">
+      <div class="devis-side">
+        <div class="eyebrow">Nº 02 · Sur-mesure</div>
+        <h2>Tu as un projet<br><span class="f-serif-i" style="color: var(--w-70);">en tête ?</span></h2>
+        <p>
+          Sweat custom, cadeau original, déco personnalisée, papeterie d'événement…
+          Je crée la pièce avec toi, fabriquée à la main dans mon atelier.
         </p>
+        <p style="margin-top: 24px;">Voilà comment ça se passe :</p>
+        <ul>
+          <li>Tu remplis le formulaire avec ton idée</li>
+          <li>Je te réponds sous 48h avec un devis</li>
+          <li>On échange pour affiner ensemble</li>
+          <li>Je fabrique, j'envoie, tu reçois ta pièce</li>
+        </ul>
       </div>
-    </div>
 
-    <div class="creations-grid">
-      <div class="creation h-80">
-        <img src="sweat-volcan-aubergine.jpg" alt="Sweat Volcan aubergine">
-        <span class="creation-no">01</span>
-        <div class="creation-foot">
-          <div>
-            <span class="creation-label">Sweat · capsule</span>
-            <div class="creation-name">Volcan, encre aubergine</div>
+      <!-- FORMSPREE: Remplace YOUR_FORM_ID par ton ID après inscription sur formspree.io -->
+      <form class="devis" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="field">
+          <label>Type de projet</label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="type" value="Sweat / textile" required>Sweat / textile</label>
+            <label class="chip"><input type="radio" name="type" value="Mug / objet">Mug / objet</label>
+            <label class="chip"><input type="radio" name="type" value="Carte / papeterie">Papeterie</label>
+            <label class="chip"><input type="radio" name="type" value="Sticker / déco">Stickers / déco</label>
+            <label class="chip"><input type="radio" name="type" value="Autre">Autre</label>
           </div>
-          <span class="creation-link">voir →</span>
         </div>
-      </div>
-      <div class="creation h-64">
-        <img src="mug-volcan-noir.jpg" alt="Mug Volcan noir">
-        <span class="creation-no">02</span>
-        <div class="creation-foot">
-          <div>
-            <span class="creation-label">Mug · pièce</span>
-            <div class="creation-name">Volcan, édition encre</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Quantité</label>
+            <select name="quantite" required>
+              <option value="">Choisis…</option>
+              <option>1 pièce</option>
+              <option>2 à 5 pièces</option>
+              <option>6 à 20 pièces</option>
+              <option>Plus de 20</option>
+            </select>
           </div>
-          <span class="creation-link">voir →</span>
-        </div>
-      </div>
-      <div class="creation h-72">
-        <img src="sweat-volcan-noir-blanc.jpg" alt="Sweat Volcan noir et blanc">
-        <span class="creation-no">03</span>
-        <div class="creation-foot">
-          <div>
-            <span class="creation-label">Sweat · variante</span>
-            <div class="creation-name">Volcan, encre claire</div>
+          <div class="field">
+            <label>Budget approx.</label>
+            <select name="budget" required>
+              <option value="">Choisis…</option>
+              <option>Moins de 30€</option>
+              <option>30 — 80€</option>
+              <option>80 — 150€</option>
+              <option>150€ et plus</option>
+            </select>
           </div>
-          <span class="creation-link">voir →</span>
         </div>
-      </div>
-      <div class="creation h-64">
-        <img src="mug-volcan-blanc.jpg" alt="Mug Volcan blanc">
-        <span class="creation-no">04</span>
-        <div class="creation-foot">
-          <div>
-            <span class="creation-label">Mug · porcelaine</span>
-            <div class="creation-name">Volcan, encre noire</div>
+
+        <div class="field">
+          <label>Pour quand ?</label>
+          <input type="date" name="date_souhaitee">
+        </div>
+
+        <div class="field">
+          <label>Décris ton idée</label>
+          <textarea name="description" placeholder="Sweat noir avec un motif chat, taille M, pour offrir à ma sœur fin du mois…" required></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Ton prénom</label>
+            <input type="text" name="prenom" placeholder="Marie" required>
           </div>
-          <span class="creation-link">voir →</span>
-        </div>
-      </div>
-      <div class="creation h-80">
-        <img src="sweat-dragon.jpg" alt="Sweat Dragon">
-        <span class="creation-no">05</span>
-        <div class="creation-foot">
-          <div>
-            <span class="creation-label">Pièce · isolée</span>
-            <div class="creation-name">Le Dragon &amp; le code</div>
+          <div class="field">
+            <label>Ton email</label>
+            <input type="email" name="email" placeholder="marie@gmail.com" required>
           </div>
-          <span class="creation-link">voir →</span>
         </div>
-      </div>
-      <div class="creation h-72">
-        <img src="sweat-volcan-plie.jpg" alt="Sweat Volcan plié">
-        <span class="creation-no">06</span>
-        <div class="creation-foot">
-          <div>
-            <span class="creation-label">Sweat · détail</span>
-            <div class="creation-name">Volcan, le pli</div>
-          </div>
-          <span class="creation-link">voir →</span>
-        </div>
-      </div>
+
+        <button type="submit" class="submit">Envoyer ma demande</button>
+        <p class="form-note">Je te réponds sous 48h max. Pas de spam, jamais.</p>
+      </form>
     </div>
   </section>
 
-  <!-- MOT DE L'AUTRICE -->
-  <section class="deep">
-    <div class="mot-bloc">
-      <div class="eyebrow" style="margin-bottom: 32px;">Mot de la maison</div>
-      <p>
-        "J'ai commencé par vouloir vendre des vêtements.
-        <span class="f-serif-i" style="color: var(--w-85);"> Je suis restée pour la matière.</span>
-        Fausse Calme, c'est l'endroit où je range tout ce que j'apprends — et tout ce que j'aurais aimé qu'on me dise."
+  <!-- CONSEILS & ASTUCES -->
+  <section class="deep" id="conseils">
+    <div class="sec-head">
+      <div class="eyebrow">Nº 03 · Conseils &amp; astuces</div>
+      <h2>Le carnet<br><span class="f-serif-i" style="color: var(--w-70);">de l'atelier.</span></h2>
+      <p class="sec-intro">
+        Tout ce que j'apprends en chemin, dans un format court. Pas un blog d'experts.
+        Un partage entre passionnées.
       </p>
-      <div class="mot-sign">— l'autrice</div>
-      <div class="mot-loc">atelier maison</div>
+    </div>
+
+    <div class="articles-grid">
+      <article class="article-card">
+        <div class="article-meta">Tuto · 8 min</div>
+        <h3 class="article-title">Ta Cricut coupe mal ? Les 6 erreurs à vérifier</h3>
+        <p class="article-excerpt">Lame, tapis, pression, calibrage… 90% des problèmes viennent de là. Le guide complet pour ne plus jamais galérer.</p>
+        <div class="article-link">Lire <span class="article-arrow">→</span></div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-meta">Lexique · débutant</div>
+        <h3 class="article-title">Les 8 mots Cricut à connaître avant de débuter</h3>
+        <p class="article-excerpt">Tapis, lame, échenillage, flex, calibrage… Si tu galères avec les termes, tu galères avec ta machine.</p>
+        <div class="article-link">Lire <span class="article-arrow">→</span></div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-meta">Lexique · intermédiaire</div>
+        <h3 class="article-title">Niveau 2 débloqué : 8 mots pour passer pro</h3>
+        <p class="article-excerpt">SVG, souder, aplatir, miroir… La différence entre un projet raté et un projet pro.</p>
+        <div class="article-link">Lire <span class="article-arrow">→</span></div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-meta">Astuce · textile</div>
+        <h3 class="article-title">Personnaliser un tote bag sans le rater au fer</h3>
+        <p class="article-excerpt">Les trois réglages qui changent tout, et l'astuce pour décoller le support sans arracher ton motif.</p>
+        <div class="article-link">À venir <span class="article-arrow">→</span></div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-meta">Astuce · stickers</div>
+        <h3 class="article-title">Kiss cut pour stickers maison</h3>
+        <p class="article-excerpt">Couper le vinyle sans traverser le support. La base pour des stickers nets.</p>
+        <div class="article-link">À venir <span class="article-arrow">→</span></div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-meta">Tuto · papier</div>
+        <h3 class="article-title">Cartes rainurées qui se plient parfaitement</h3>
+        <p class="article-excerpt">Le rainurage, l'arme secrète pour des cartes pro qui ne se déchirent jamais au pli.</p>
+        <div class="article-link">À venir <span class="article-arrow">→</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- MATÉRIEL -->
+  <section id="materiel">
+    <div class="sec-head">
+      <div class="eyebrow">Nº 04 · Mon matériel</div>
+      <h2>Ce que j'utilise<br><span class="f-serif-i" style="color: var(--w-70);">vraiment.</span></h2>
+      <p class="sec-intro">
+        Pas de placement de produit, pas de "top 10" copié d'ailleurs.
+        Juste le matériel passé par mes mains, qui a survécu à mon agacement.
+      </p>
+    </div>
+
+    <div class="shop-grid">
+      <!-- Remplace les # par tes vrais liens affiliés -->
+      <a href="#" target="_blank" rel="noopener noreferrer" class="product">
+        <span class="product-tag">Indispensable</span>
+        <div class="product-name">Cricut Maker 3</div>
+        <div class="product-shop">Cricut · Amazon</div>
+        <p class="product-desc">Ma machine principale. Coupe à peu près tout, à condition de la calibrer correctement.</p>
+        <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
+      </a>
+
+      <a href="#" target="_blank" rel="noopener noreferrer" class="product">
+        <span class="product-tag">Indispensable</span>
+        <div class="product-name">Crochet d'échenillage</div>
+        <div class="product-shop">Cricut · Amazon</div>
+        <p class="product-desc">L'outil dont je pensais pouvoir me passer. Spoiler : non.</p>
+        <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
+      </a>
+
+      <a href="#" target="_blank" rel="noopener noreferrer" class="product">
+        <span class="product-tag">Pour débuter</span>
+        <div class="product-name">Tapis StandardGrip</div>
+        <div class="product-shop">Cricut · Amazon</div>
+        <p class="product-desc">Le tapis vert, polyvalent. À avoir avant tout le reste.</p>
+        <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
+      </a>
+
+      <a href="#" target="_blank" rel="noopener noreferrer" class="product">
+        <span class="product-tag">Le bon plan</span>
+        <div class="product-name">Vinyle flex pack</div>
+        <div class="product-shop">Amazon FR</div>
+        <p class="product-desc">Un kit complet de couleurs pour débuter le flex sans se ruiner.</p>
+        <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
+      </a>
+
+      <a href="#" target="_blank" rel="noopener noreferrer" class="product">
+        <span class="product-tag">Indispensable</span>
+        <div class="product-name">Presse à chaud</div>
+        <div class="product-shop">Cricut EasyPress</div>
+        <p class="product-desc">Pour un transfert net du flex sur textile. Le fer à repasser, ça marche, mais pas pareil.</p>
+        <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
+      </a>
+
+      <a href="#" target="_blank" rel="noopener noreferrer" class="product">
+        <span class="product-tag">Astuce</span>
+        <div class="product-name">Papier de transfert</div>
+        <div class="product-shop">Amazon FR</div>
+        <p class="product-desc">Pour les motifs vinyle avec du texte ou plusieurs éléments. Obligatoire.</p>
+        <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
+      </a>
+    </div>
+
+    <p class="affiliate-note">
+      ↳ Certains liens sont affiliés. Une petite commission tombe si tu achètes via mon lien,
+      sans rien changer au prix pour toi. C'est ce qui fait vivre le site.
+    </p>
+  </section>
+
+  <!-- BOUTIQUES CHOUCHOU -->
+  <section class="deep" id="boutiques">
+    <div class="sec-head">
+      <div class="eyebrow">Nº 05 · Boutiques chouchou</div>
+      <h2>Mes adresses<br><span class="f-serif-i" style="color: var(--w-70);">préférées.</span></h2>
+      <p class="sec-intro">
+        Là où je fais mes courses créatives, et les comptes qui m'inspirent.
+        Mix de spots français pour économiser et de créatrices qui m'ont fait grandir.
+      </p>
+    </div>
+
+    <div class="shops-grid">
+      <a href="https://www.cricut.com" target="_blank" rel="noopener noreferrer" class="shop">
+        <div class="shop-type">Boutique · officielle</div>
+        <div class="shop-name">Cricut France</div>
+        <p class="shop-desc">La source, pour le matériel propriétaire et les nouveautés machine.</p>
+        <span class="shop-link">Visiter <span class="shop-arrow">↗</span></span>
+      </a>
+
+      <a href="https://www.action.com/fr-fr/" target="_blank" rel="noopener noreferrer" class="shop">
+        <div class="shop-type">Boutique · bon plan</div>
+        <div class="shop-name">Action</div>
+        <p class="shop-desc">Vinyles, papiers, supports déco à prix dérisoires. Je fonce dès qu'il y a un arrivage.</p>
+        <span class="shop-link">Voir le rayon DIY <span class="shop-arrow">↗</span></span>
+      </a>
+
+      <a href="https://www.cultura.com" target="_blank" rel="noopener noreferrer" class="shop">
+        <div class="shop-type">Boutique · loisirs créatifs</div>
+        <div class="shop-name">Cultura</div>
+        <p class="shop-desc">Pour le matériel un peu plus pointu, les rayons scrapbooking et tampons.</p>
+        <span class="shop-link">Visiter <span class="shop-arrow">↗</span></span>
+      </a>
+
+      <a href="https://www.etsy.com" target="_blank" rel="noopener noreferrer" class="shop">
+        <div class="shop-type">Boutique · fichiers</div>
+        <div class="shop-name">Etsy</div>
+        <p class="shop-desc">Mes fichiers SVG préférés viennent d'ici. Créatrices indé, qualité au rendez-vous.</p>
+        <span class="shop-link">Mes vendeurs <span class="shop-arrow">↗</span></span>
+      </a>
+
+      <a href="https://www.hema.fr" target="_blank" rel="noopener noreferrer" class="shop">
+        <div class="shop-type">Boutique · déco</div>
+        <div class="shop-name">Hema</div>
+        <p class="shop-desc">Pour les supports à customiser : mugs, totes, déco maison. Bon rapport qualité-prix.</p>
+        <span class="shop-link">Visiter <span class="shop-arrow">↗</span></span>
+      </a>
+
+      <a href="#" target="_blank" rel="noopener noreferrer" class="shop">
+        <div class="shop-type">Créatrice · à suivre</div>
+        <div class="shop-name">@creatrice_a</div>
+        <p class="shop-desc">Des tutos Cricut français d'une clarté incroyable. C'est elle qui m'a fait progresser.</p>
+        <span class="shop-link">TikTok <span class="shop-arrow">↗</span></span>
+      </a>
     </div>
   </section>
 
@@ -739,12 +906,12 @@
   <section>
     <div class="cta-grid">
       <div>
-        <div class="eyebrow">En attendant la prochaine page</div>
-        <h2 style="margin-top: 16px;">Le quotidien<br>est <span class="f-serif-i" style="color: var(--w-70);">sur TikTok.</span></h2>
+        <div class="eyebrow">En attendant la suite</div>
+        <h2>Le quotidien<br>est <span class="f-serif-i" style="color: var(--w-70);">sur TikTok.</span></h2>
         <p>Tutos courts, ratés, recommencés. Si tu veux voir l'atelier en vrai, c'est par là.</p>
       </div>
       <div class="cta-tiktok">
-        <a class="btn btn-primary">@fausse_calme <span>↗</span></a>
+        <a href="https://www.tiktok.com/@fausse_calme" target="_blank" rel="noopener noreferrer" class="btn btn-primary">@fausse_calme <span>↗</span></a>
       </div>
     </div>
   </section>
@@ -759,16 +926,17 @@
       <div class="foot-col">
         <div class="foot-title">Le site</div>
         <ul>
-          <li>DIY</li>
-          <li>L'atelier</li>
-          <li>Créations</li>
-          <li>Bons plans</li>
+          <li><a href="#collections">Collections</a></li>
+          <li><a href="#sur-mesure">Sur-mesure</a></li>
+          <li><a href="#conseils">Conseils</a></li>
+          <li><a href="#materiel">Matériel</a></li>
+          <li><a href="#boutiques">Boutiques</a></li>
         </ul>
       </div>
       <div class="foot-col">
         <div class="foot-title">Ailleurs</div>
         <ul>
-          <li>TikTok</li>
+          <li><a href="https://www.tiktok.com/@fausse_calme" target="_blank">TikTok</a></li>
           <li>Instagram</li>
           <li>Pinterest</li>
           <li>Email</li>
