@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fausse Calme — Carnet d'atelier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=Caveat+Brush&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #330327;
+      --ink-deep: #1F0118;
+      --paper: #ffffff;
+      --w-90: rgba(255,255,255,.9);
+      --w-80: rgba(255,255,255,.8);
+      --w-70: rgba(255,255,255,.7);
+      --w-60: rgba(255,255,255,.6);
+      --w-50: rgba(255,255,255,.5);
+      --w-30: rgba(255,255,255,.3);
+      --w-25: rgba(255,255,255,.25);
+      --w-15: rgba(255,255,255,.15);
+      --w-10: rgba(255,255,255,.1);
+      --w-05: rgba(255,255,255,.05);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      background: var(--ink);
+      color: var(--paper);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; cursor: pointer; }
+    ul { list-style: none; }
+    img, svg { display: block; max-width: 100%; }
+
+    .f-display { font-family: 'Bricolage Grotesque', sans-serif; font-variation-settings: 'wdth' 100; }
+    .f-display-wide { font-family: 'Bricolage Grotesque', sans-serif; font-variation-settings: 'wdth' 120; }
+    .f-serif-i { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+    .f-brush { font-family: 'Caveat Brush', cursive; font-weight: 400; }
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--w-60);
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px;
+      background: rgba(51,3,39,.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--w-15);
+    }
+    @media (min-width: 768px) { nav { padding: 20px 48px; } }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { height: 56px; width: auto; }
+    .nav-links { display: none; gap: 32px; font-size: 14px; }
+    .nav-links li { cursor: pointer; transition: opacity .2s; }
+    .nav-links li:hover { opacity: .6; }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+    .nav-cta {
+      font-size: 14px;
+      border: 1px solid var(--paper);
+      padding: 8px 16px;
+      border-radius: 999px;
+      transition: all .2s;
+    }
+    .nav-cta:hover { background: var(--paper); color: var(--ink); }
+
+    /* HERO */
+    .hero { padding: 64px 24px 80px; position: relative; }
+    @media (min-width: 768px) { .hero { padding: 96px 48px 128px; } }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr; gap: 32px; align-items: end;
+    }
+    @media (min-width: 768px) {
+      .hero-grid { grid-template-columns: repeat(12, 1fr); }
+      .hero-main { grid-column: span 8; }
+      .hero-side { grid-column: span 4; padding-left: 32px; }
+    }
+    .hero h1 {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 600, 'wdth' 95;
+      font-size: 14vw;
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+      margin: 32px 0;
+    }
+    @media (min-width: 768px) { .hero h1 { font-size: 8vw; } }
+    .hero h1 .softer { color: var(--w-70); }
+    .hero p.intro {
+      font-size: 18px; max-width: 520px;
+      color: var(--w-80); line-height: 1.7;
+    }
+    @media (min-width: 768px) { .hero p.intro { font-size: 20px; } }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 12px 24px; border-radius: 999px;
+      font-size: 14px; transition: all .2s;
+    }
+    .btn-primary { background: var(--paper); color: var(--ink); font-weight: 500; }
+    .btn-primary:hover { opacity: .85; }
+    .btn-ghost { border: 1px solid var(--w-30); color: var(--paper); }
+    .btn-ghost:hover { border-color: var(--paper); }
+
+    /* Hero side image */
+    .hero-card {
+      aspect-ratio: 4/5;
+      border-radius: 2px;
+      position: relative; overflow: hidden;
+      animation: drift 12s ease-in-out infinite;
+    }
+    @keyframes drift {
+      0%, 100% { transform: translate(0,0); }
+      50% { transform: translate(-8px, 6px); }
+    }
+    .hero-card img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-card-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 24px;
+      pointer-events: none;
+    }
+    .hero-card-overlay .top { display: flex; justify-content: space-between; align-items: start; }
+    .hero-card-meta {
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--w-90);
+      background: rgba(51,3,39,.5);
+      backdrop-filter: blur(4px);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+    .hero-side-cap { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--w-50); margin-top: 16px; text-align: right; }
+
+    /* Ticker */
+    .ticker {
+      margin-top: 80px;
+      border-top: 1px solid var(--w-20);
+      border-bottom: 1px solid var(--w-20);
+      padding: 20px 0;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) { .ticker { margin-top: 128px; } }
+    .ticker-row {
+      display: flex; gap: 48px;
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wdth' 120;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      color: var(--w-75);
+      white-space: nowrap;
+    }
+    @media (min-width: 768px) { .ticker-row { font-size: 30px; } }
+    .ticker-row .dot { color: var(--w-30); }
+
+    /* SECTIONS */
+    section.deep {
+      background: var(--ink-deep);
+      border-top: 1px solid var(--w-10);
+      border-bottom: 1px solid var(--w-10);
+    }
+    section { padding: 80px 24px; }
+    @media (min-width: 768px) { section { padding: 112px 48px; } }
+
+    .sec-head { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
+    @media (min-width: 768px) {
+      .sec-head { grid-template-columns: repeat(12, 1fr); align-items: end; }
+    }
+    .sec-head h2 {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 600;
+      font-size: clamp(40px, 7vw, 80px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+    }
+
+    /* PILIERS */
+    .piliers-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 768px) { .piliers-grid { grid-template-columns: repeat(4, 1fr); } }
+    .pilier {
+      border: 1px solid var(--w-25);
+      border-radius: 2px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all .3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .pilier:hover {
+      transform: translateY(-4px);
+      border-color: var(--paper);
+      background: var(--w-05);
+    }
+    .pilier-num { font-size: 12px; letter-spacing: 0.3em; color: var(--w-60); margin-bottom: 32px; }
+    .pilier-titre {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 500;
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+    .pilier-sub { font-size: 14px; color: var(--w-65); line-height: 1.6; }
+    .pilier-link { font-size: 14px; margin-top: 32px; display: flex; align-items: center; gap: 8px; }
+    .pilier:hover .pilier-arrow { transform: translateX(4px); }
+    .pilier-arrow { transition: transform .3s; }
+
+    /* DIY */
+    .diy-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 768px) { .diy-grid { grid-template-columns: repeat(12, 1fr); } }
+    .diy-feature { grid-column: span 7; cursor: pointer; }
+    .diy-list { grid-column: span 5; display: flex; flex-direction: column; gap: 24px; }
+    .diy-feature-img {
+      aspect-ratio: 16/11;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .diy-feature-img img { width: 100%; height: 100%; object-fit: cover; }
+    .pill {
+      position: absolute; top: 20px; left: 20px;
+      background: var(--paper); color: var(--ink);
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 999px;
+    }
+    .diy-cat { font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--w-60); margin-bottom: 8px; }
+    .diy-feature h3 {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 500;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    @media (min-width: 768px) { .diy-feature h3 { font-size: 36px; } }
+    .diy-feature p { color: var(--w-70); max-width: 520px; }
+
+    .diy-item {
+      display: flex; gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--w-15);
+      cursor: pointer;
+    }
+    .diy-list > .diy-item:last-child { border-bottom: none; }
+    .diy-thumb {
+      width: 96px; height: 96px; flex-shrink: 0;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) { .diy-thumb { width: 128px; height: 128px; } }
+    .diy-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .diy-item h4 {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 500;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      transition: opacity .2s;
+    }
+    @media (min-width: 768px) { .diy-item h4 { font-size: 24px; } }
+    .diy-item:hover h4 { opacity: 0.7; }
+    .diy-meta { font-size: 11px; color: var(--w-55); }
+
+    /* Atelier */
+    .atelier-bg { position: relative; overflow: hidden; }
+    .atelier-watermark {
+      position: absolute; top: 40px; right: 40px;
+      font-family: 'Caveat Brush';
+      color: var(--w-10);
+      font-size: 12rem; line-height: 1;
+      user-select: none; pointer-events: none;
+      display: none;
+    }
+    @media (min-width: 768px) { .atelier-watermark { display: block; } }
+    .atelier h2 {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 600;
+      font-size: clamp(40px, 7vw, 90px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      max-width: 800px;
+      margin-bottom: 24px;
+      margin-top: 16px;
+    }
+    .atelier > .relative { position: relative; }
+    .atelier-intro { max-width: 520px; color: var(--w-70); font-size: 18px; margin-bottom: 56px; }
+
+    .shop-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 768px) { .shop-grid { grid-template-columns: repeat(3, 1fr); } }
+    .product {
+      border: 1px solid var(--w-25);
+      border-radius: 2px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all .3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .product:hover {
+      transform: translateY(-4px);
+      border-color: var(--paper);
+      background: var(--w-05);
+    }
+    .product-img {
+      aspect-ratio: 4/3;
+      border: 1px solid var(--w-20);
+      border-radius: 2px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .product-cat {
+      position: absolute; top: 12px; left: 12px;
+      font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--w-80);
+    }
+    .product-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+    .product-name {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 500;
+      font-size: 20px; letter-spacing: -0.01em;
+    }
+    .product-prix { font-family: 'Instrument Serif'; font-style: italic; color: var(--w-85); font-size: 20px; }
+    .product-shop { font-size: 12px; color: var(--w-55); margin-bottom: 16px; }
+    .product-cta { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+    .product:hover .product-arrow { transform: translateX(4px); }
+    .product-arrow { transition: transform .3s; }
+    .affiliate-note { margin-top: 40px; font-size: 12px; color: var(--w-45); max-width: 520px; }
+
+    /* CRÉATIONS */
+    .creations-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 768px) { .creations-grid { grid-template-columns: repeat(6, 1fr); } }
+    .creation {
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    @media (min-width: 768px) { .creation { grid-column: span 2; } }
+    .creation:hover { transform: translateY(-4px); }
+    .creation img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .creation:hover img { transform: scale(1.04); }
+    .creation::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(31,1,24,.85) 0%, rgba(31,1,24,0) 50%);
+      pointer-events: none;
+    }
+    .creation-no { position: absolute; top: 16px; left: 16px; font-size: 10px; color: var(--paper); letter-spacing: .15em; z-index: 2; background: rgba(31,1,24,.55); backdrop-filter: blur(4px); padding: 4px 8px; border-radius: 2px; }
+    .creation-foot { position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 2; display: flex; align-items: end; justify-content: space-between; gap: 12px; }
+    .creation-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--paper); }
+    .creation-name {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 500;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: var(--paper);
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+    .creation-link { font-family: 'Instrument Serif'; font-style: italic; font-size: 14px; opacity: 0; transition: opacity .2s; color: var(--paper); }
+    .creation:hover .creation-link { opacity: 1; }
+    .h-80 { height: 380px; } .h-72 { height: 340px; } .h-64 { height: 300px; }
+    @media (max-width: 767px) {
+      .h-80, .h-72, .h-64 { height: 400px; }
+    }
+
+    /* MOT */
+    .mot-bloc { max-width: 768px; margin: 0 auto; text-align: center; }
+    .mot-bloc p {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 400;
+      font-size: clamp(24px, 4vw, 48px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+    .mot-sign { font-family: 'Caveat Brush'; font-size: 36px; margin-bottom: 8px; }
+    .mot-loc { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--w-55); }
+
+    /* CTA TikTok */
+    .cta-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+    @media (min-width: 768px) { .cta-grid { grid-template-columns: 1fr 1fr; } }
+    .cta-grid h2 {
+      font-family: 'Bricolage Grotesque';
+      font-variation-settings: 'wght' 500;
+      font-size: clamp(32px, 4.5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .cta-grid p { color: var(--w-70); max-width: 400px; }
+    .cta-tiktok { display: flex; gap: 12px; }
+    @media (min-width: 768px) { .cta-tiktok { justify-content: end; } }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink-deep);
+      border-top: 1px solid var(--w-10);
+      padding: 48px 24px;
+      color: var(--w-65);
+      font-size: 14px;
+    }
+    @media (min-width: 768px) { footer { padding: 48px 48px; } }
+    .foot-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+    @media (min-width: 768px) { .foot-grid { grid-template-columns: repeat(12, 1fr); } }
+    .foot-brand { grid-column: span 5; }
+    .foot-col { grid-column: span 2; }
+    .foot-col:last-of-type { grid-column: span 3; }
+    .foot-brand img { width: 200px; height: auto; margin-bottom: 12px; }
+    .foot-brand .meta { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; }
+    .foot-title { color: var(--paper); margin-bottom: 12px; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; }
+    .foot-col li { padding: 4px 0; cursor: pointer; }
+    .foot-col li:hover { color: var(--paper); }
+    .foot-mentions p { font-size: 11px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="brand">
+      <img src="logo.png" alt="Fausse Calme">
+    </div>
+    <ul class="nav-links">
+      <li>DIY</li>
+      <li>L'atelier</li>
+      <li>Créations</li>
+      <li>Bons plans</li>
+      <li>À propos</li>
+    </ul>
+    <a class="nav-cta">TikTok ↗</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <div class="eyebrow">Carnet d'atelier · Maison fondée en 2024</div>
+        <h1>
+          Les mains<br>
+          dans la matière,<br>
+          <span class="f-serif-i softer">à voix basse.</span>
+        </h1>
+        <p class="intro">
+          DIY honnêtes, tests Cricut, et les créations qu'on garde après les avoir essayées.
+          Tout ce que j'aurais aimé trouver quand j'ai déballé ma machine.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary">Voir mes créations</a>
+          <a class="btn btn-ghost">Commencer par les bases</a>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="hero-card">
+          <img src="mug-volcan-noir.jpg" alt="Mug Volcan — édition noire">
+          <div class="hero-card-overlay">
+            <div class="top">
+              <span class="hero-card-meta">Nº 01 · Pièce</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-side-cap">Mug Volcan · édition encre</div>
+      </div>
+    </div>
+
+    <div class="ticker">
+      <div class="ticker-row">
+        <span>Tutos sans bullshit</span>
+        <span class="dot">·</span>
+        <span class="f-serif-i">Bons plans français</span>
+        <span class="dot">·</span>
+        <span>Tests honnêtes</span>
+        <span class="dot">·</span>
+        <span class="f-serif-i">Le matériel testé</span>
+        <span class="dot">·</span>
+        <span>Lexique Cricut</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILIERS -->
+  <section class="deep">
+    <div class="sec-head">
+      <div style="grid-column: span 4;">
+        <div class="eyebrow">Au programme</div>
+        <h2 style="margin-top: 16px;">Quatre piliers,<br><span class="f-serif-i" style="color: var(--w-70);">une seule envie.</span></h2>
+      </div>
+      <div style="grid-column: span 7; grid-column-start: 6;">
+        <p style="color: var(--w-75); font-size: 18px; line-height: 1.7; max-width: 420px;">
+          Fausse Calme est un carnet de bord pour celles qui découpent, customisent, récupèrent.
+          Pas un blog d'experts. Un atelier ouvert.
+        </p>
+      </div>
+    </div>
+
+    <div class="piliers-grid">
+      <div class="pilier">
+        <div class="pilier-num">01</div>
+        <div class="pilier-titre">DIY</div>
+        <div class="pilier-sub">Tutos courts, du brouillon au résultat</div>
+        <div class="pilier-link">Explorer <span class="pilier-arrow">→</span></div>
+      </div>
+      <div class="pilier">
+        <div class="pilier-num">02</div>
+        <div class="pilier-titre">L'atelier</div>
+        <div class="pilier-sub">Le matériel que j'utilise vraiment</div>
+        <div class="pilier-link">Explorer <span class="pilier-arrow">→</span></div>
+      </div>
+      <div class="pilier">
+        <div class="pilier-num">03</div>
+        <div class="pilier-titre">Créations</div>
+        <div class="pilier-sub">Mes pièces — certaines sont à vendre</div>
+        <div class="pilier-link">Explorer <span class="pilier-arrow">→</span></div>
+      </div>
+      <div class="pilier">
+        <div class="pilier-num">04</div>
+        <div class="pilier-titre">Bons plans</div>
+        <div class="pilier-sub">Où acheter pas cher en France</div>
+        <div class="pilier-link">Explorer <span class="pilier-arrow">→</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DERNIERS DIY -->
+  <section>
+    <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 64px;">
+      <div>
+        <div class="eyebrow">Derniers carnets</div>
+        <h2 class="f-display" style="font-variation-settings: 'wght' 600; font-size: clamp(40px, 6vw, 64px); line-height: 0.9; letter-spacing: -0.04em; margin-top: 16px;">
+          On a fait <span class="f-serif-i" style="color: var(--w-70);">quoi</span><br>
+          cette semaine ?
+        </h2>
+      </div>
+    </div>
+
+    <div class="diy-grid">
+      <div class="diy-feature">
+        <div class="diy-feature-img">
+          <img src="sweat-volcan-aubergine.jpg" alt="Sweat Volcan édition aubergine">
+          <span class="pill">Pièce · prototype</span>
+        </div>
+        <div class="diy-cat">Textile · capsule maison</div>
+        <h3>Sweat Volcan, édition aubergine,<br><span class="f-serif-i" style="color: var(--w-70);">l'éruption silencieuse.</span></h3>
+        <p>Premier prototype de la capsule "Fausse Calme". Encre aubergine sur sweat noir,
+        sérigraphié main. Tirage limité, prochain drop en préparation.</p>
+      </div>
+
+      <div class="diy-list">
+        <div class="diy-item">
+          <div class="diy-thumb"><img src="mug-volcan-noir.jpg" alt="Mug Volcan noir"></div>
+          <div>
+            <div class="diy-cat">Pièce · Mug</div>
+            <h4>Mug Volcan — édition encre</h4>
+            <div class="diy-meta">Prototype · 1 ex. dispo</div>
+          </div>
+        </div>
+        <div class="diy-item">
+          <div class="diy-thumb"><img src="sweat-volcan-noir-blanc.jpg" alt="Sweat volcan noir et blanc"></div>
+          <div>
+            <div class="diy-cat">Textile</div>
+            <h4>Sweat Volcan — version contrastée</h4>
+            <div class="diy-meta">Variant noir &amp; blanc</div>
+          </div>
+        </div>
+        <div class="diy-item">
+          <div class="diy-thumb"><img src="mug-volcan-blanc.jpg" alt="Mug Volcan blanc"></div>
+          <div>
+            <div class="diy-cat">Pièce · Mug</div>
+            <h4>Mug Volcan — porcelaine claire</h4>
+            <div class="diy-meta">Encre noire sur émail</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATELIER -->
+  <section class="deep atelier atelier-bg">
+    <div class="atelier-watermark">atelier</div>
+    <div class="relative">
+      <div class="eyebrow">Nº 02 · L'atelier</div>
+      <h2>
+        Le matériel<br>
+        que <span class="f-serif-i" style="color: var(--w-70);">je rachèterais</span><br>
+        les yeux fermés.
+      </h2>
+      <p class="atelier-intro">
+        Aucun produit ici n'est sponsorisé. Si c'est dans la liste, c'est qu'il est passé par mes mains
+        et qu'il a survécu à mon agacement.
+      </p>
+
+      <div class="shop-grid">
+        <div class="product">
+          <div class="product-img"><span class="product-cat">Indispensable</span></div>
+          <div class="product-row">
+            <h4 class="product-name">Crochet d'échenillage</h4>
+            <span class="product-prix">€8</span>
+          </div>
+          <div class="product-shop">Cricut · via Amazon</div>
+          <div class="product-cta">Voir où l'acheter <span class="product-arrow">↗</span></div>
+        </div>
+        <div class="product">
+          <div class="product-img"><span class="product-cat">Le bon plan</span></div>
+          <div class="product-row">
+            <h4 class="product-name">Vinyle flex 30×50 cm</h4>
+            <span class="product-prix">€4,50</span>
+          </div>
+          <div class="product-shop">Action · en magasin</div>
+          <div class="product-cta">Voir où l'acheter <span class="product-arrow">↗</span></div>
+        </div>
+        <div class="product">
+          <div class="product-img"><span class="product-cat">Pour débuter</span></div>
+          <div class="product-row">
+            <h4 class="product-name">Tapis vert StandardGrip</h4>
+            <span class="product-prix">€12</span>
+          </div>
+          <div class="product-shop">Cricut Joy / Maker</div>
+          <div class="product-cta">Voir où l'acheter <span class="product-arrow">↗</span></div>
+        </div>
+      </div>
+
+      <p class="affiliate-note">
+        ↳ Certains liens sont affiliés. Une petite commission tombe si tu achètes via mon lien,
+        sans rien changer pour toi. C'est ce qui fait vivre le site.
+      </p>
+    </div>
+  </section>
+
+  <!-- CRÉATIONS -->
+  <section>
+    <div class="sec-head">
+      <div style="grid-column: span 7;">
+        <div class="eyebrow">Nº 03 · L'autre côté du calme</div>
+        <h2 style="margin-top: 16px;">Mes <span class="f-serif-i" style="color: var(--w-70);">créations.</span></h2>
+      </div>
+      <div style="grid-column: span 4; grid-column-start: 9;">
+        <p style="color: var(--w-75);">
+          La capsule "Volcan" — premier chapitre de la maison Fausse Calme.
+          Pièces tirées à très peu d'exemplaires, parfois uniques.
+          Le calme apparent, l'éruption en dessous.
+        </p>
+      </div>
+    </div>
+
+    <div class="creations-grid">
+      <div class="creation h-80">
+        <img src="sweat-volcan-aubergine.jpg" alt="Sweat Volcan aubergine">
+        <span class="creation-no">01</span>
+        <div class="creation-foot">
+          <div>
+            <span class="creation-label">Sweat · capsule</span>
+            <div class="creation-name">Volcan, encre aubergine</div>
+          </div>
+          <span class="creation-link">voir →</span>
+        </div>
+      </div>
+      <div class="creation h-64">
+        <img src="mug-volcan-noir.jpg" alt="Mug Volcan noir">
+        <span class="creation-no">02</span>
+        <div class="creation-foot">
+          <div>
+            <span class="creation-label">Mug · pièce</span>
+            <div class="creation-name">Volcan, édition encre</div>
+          </div>
+          <span class="creation-link">voir →</span>
+        </div>
+      </div>
+      <div class="creation h-72">
+        <img src="sweat-volcan-noir-blanc.jpg" alt="Sweat Volcan noir et blanc">
+        <span class="creation-no">03</span>
+        <div class="creation-foot">
+          <div>
+            <span class="creation-label">Sweat · variante</span>
+            <div class="creation-name">Volcan, encre claire</div>
+          </div>
+          <span class="creation-link">voir →</span>
+        </div>
+      </div>
+      <div class="creation h-64">
+        <img src="mug-volcan-blanc.jpg" alt="Mug Volcan blanc">
+        <span class="creation-no">04</span>
+        <div class="creation-foot">
+          <div>
+            <span class="creation-label">Mug · porcelaine</span>
+            <div class="creation-name">Volcan, encre noire</div>
+          </div>
+          <span class="creation-link">voir →</span>
+        </div>
+      </div>
+      <div class="creation h-80">
+        <img src="sweat-dragon.jpg" alt="Sweat Dragon">
+        <span class="creation-no">05</span>
+        <div class="creation-foot">
+          <div>
+            <span class="creation-label">Pièce · isolée</span>
+            <div class="creation-name">Le Dragon &amp; le code</div>
+          </div>
+          <span class="creation-link">voir →</span>
+        </div>
+      </div>
+      <div class="creation h-72">
+        <img src="sweat-volcan-plie.jpg" alt="Sweat Volcan plié">
+        <span class="creation-no">06</span>
+        <div class="creation-foot">
+          <div>
+            <span class="creation-label">Sweat · détail</span>
+            <div class="creation-name">Volcan, le pli</div>
+          </div>
+          <span class="creation-link">voir →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOT DE L'AUTRICE -->
+  <section class="deep">
+    <div class="mot-bloc">
+      <div class="eyebrow" style="margin-bottom: 32px;">Mot de la maison</div>
+      <p>
+        "J'ai commencé par vouloir vendre des vêtements.
+        <span class="f-serif-i" style="color: var(--w-85);"> Je suis restée pour la matière.</span>
+        Fausse Calme, c'est l'endroit où je range tout ce que j'apprends — et tout ce que j'aurais aimé qu'on me dise."
+      </p>
+      <div class="mot-sign">— l'autrice</div>
+      <div class="mot-loc">atelier maison</div>
+    </div>
+  </section>
+
+  <!-- CTA TIKTOK -->
+  <section>
+    <div class="cta-grid">
+      <div>
+        <div class="eyebrow">En attendant la prochaine page</div>
+        <h2 style="margin-top: 16px;">Le quotidien<br>est <span class="f-serif-i" style="color: var(--w-70);">sur TikTok.</span></h2>
+        <p>Tutos courts, ratés, recommencés. Si tu veux voir l'atelier en vrai, c'est par là.</p>
+      </div>
+      <div class="cta-tiktok">
+        <a class="btn btn-primary">@fausse_calme <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="logo.png" alt="Fausse Calme">
+        <div class="meta">Carnet d'atelier · 2026</div>
+      </div>
+      <div class="foot-col">
+        <div class="foot-title">Le site</div>
+        <ul>
+          <li>DIY</li>
+          <li>L'atelier</li>
+          <li>Créations</li>
+          <li>Bons plans</li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <div class="foot-title">Ailleurs</div>
+        <ul>
+          <li>TikTok</li>
+          <li>Instagram</li>
+          <li>Pinterest</li>
+          <li>Email</li>
+        </ul>
+      </div>
+      <div class="foot-col foot-mentions">
+        <div class="foot-title">Mentions</div>
+        <p>Site indépendant. Certains liens sont affiliés.<br>Aucune sponsorisation acceptée à ce jour.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
