@@ -303,6 +303,24 @@
     .field select:focus,
     .field textarea:focus { outline: none; border-color: var(--paper); }
     .field textarea { resize: vertical; min-height: 100px; }
+    .field select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+    .field select option {
+      background: var(--ink-deep);
+      color: var(--paper);
+      padding: 10px;
+    }
+    .field input[type="date"] {
+      color-scheme: dark;
+      cursor: pointer;
+    }
     .field-row { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
 
