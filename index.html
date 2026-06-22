@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fausse Calme — Carnet d'atelier</title>
-  <meta name="description" content="Créations Cricut, conseils, astuces et bonnes adresses. Fait main par Fausse Calme.">
+  <meta name="description" content="La collection Fausse Calme. Créations Cricut sur mesure, conseils et bonnes adresses.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=Caveat+Brush&display=swap" rel="stylesheet">
@@ -180,27 +180,16 @@
       margin-top: 14px;
     }
     .sec-intro {
-      max-width: 520px; color: var(--w-75);
+      max-width: 580px; color: var(--w-75);
       font-size: 17px; line-height: 1.7;
       margin-top: 20px;
     }
 
-    /* COLLECTIONS */
-    .collection { margin-bottom: 72px; }
-    .collection:last-child { margin-bottom: 0; }
-    .collection-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
-    .collection-title {
-      font-family: 'Bricolage Grotesque';
-      font-variation-settings: 'wght' 500;
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-    .collection-meta { font-size: 13px; color: var(--w-60); letter-spacing: 0.05em; }
-    .collection-desc { color: var(--w-70); max-width: 600px; margin-bottom: 28px; font-size: 16px; line-height: 1.6; }
-    .collection-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media (min-width: 640px) { .collection-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .collection-grid { grid-template-columns: repeat(4, 1fr); } }
+    /* PIECES GRID */
+    .pieces-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 640px) { .pieces-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .pieces-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1280px) { .pieces-grid { grid-template-columns: repeat(4, 1fr); } }
 
     .piece {
       border-radius: 2px;
@@ -208,6 +197,7 @@
       cursor: pointer;
       transition: transform .4s cubic-bezier(0.2, 0.8, 0.2, 1);
       aspect-ratio: 4/5;
+      background: var(--ink-deep);
     }
     .piece:hover { transform: translateY(-4px); }
     .piece img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
@@ -215,7 +205,7 @@
     .piece::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(31,1,24,.9) 0%, rgba(31,1,24,0) 50%);
+      background: linear-gradient(to top, rgba(31,1,24,.92) 0%, rgba(31,1,24,0) 50%);
       pointer-events: none;
     }
     .piece-info { position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 2; }
@@ -232,18 +222,6 @@
       background: rgba(31,1,24,.6); backdrop-filter: blur(4px);
       padding: 4px 10px; border-radius: 999px;
     }
-    .upcoming {
-      aspect-ratio: 4/5;
-      border: 1.5px dashed var(--w-25);
-      border-radius: 2px;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 8px;
-      color: var(--w-50);
-      transition: border-color .3s, color .3s;
-    }
-    .upcoming:hover { border-color: var(--w-50); color: var(--w-70); }
-    .upcoming-big { font-size: 32px; line-height: 1; }
-    .upcoming-text { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
 
     /* SUR-MESURE */
     .devis-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
@@ -324,7 +302,6 @@
     .field-row { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
 
-    /* Radio group for project types */
     .chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip {
       position: relative;
@@ -354,7 +331,7 @@
     @media (min-width: 640px) { button.submit { width: auto; } }
     .form-note { font-size: 12px; color: var(--w-50); margin-top: 14px; line-height: 1.5; }
 
-    /* CONSEILS & ASTUCES */
+    /* ARTICLES (Conseils) */
     .articles-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
     @media (min-width: 640px) { .articles-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .articles-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -423,10 +400,9 @@
     .product-cta { font-size: 13px; display: flex; align-items: center; gap: 6px; color: var(--w-90); }
     .product:hover .product-arrow { transform: translateX(2px); }
     .product-arrow { transition: transform .3s; }
-
     .affiliate-note { margin-top: 36px; font-size: 12px; color: var(--w-45); max-width: 560px; line-height: 1.6; }
 
-    /* BOUTIQUES CHOUCHOU */
+    /* BOUTIQUES */
     .shops-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 640px) { .shops-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .shops-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -444,10 +420,7 @@
       background: var(--w-05);
       transform: translateY(-2px);
     }
-    .shop-type {
-      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--w-50);
-    }
+    .shop-type { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--w-50); }
     .shop-name {
       font-family: 'Bricolage Grotesque';
       font-variation-settings: 'wght' 500;
@@ -495,6 +468,19 @@
     .foot-col li { padding: 4px 0; cursor: pointer; }
     .foot-col li:hover { color: var(--paper); }
     .foot-mentions p { font-size: 11px; line-height: 1.6; }
+
+    .placeholder-piece {
+      aspect-ratio: 4/5;
+      border: 1.5px dashed var(--w-25);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      color: var(--w-50);
+      transition: all .3s;
+    }
+    .placeholder-piece:hover { border-color: var(--w-50); color: var(--w-70); }
+    .placeholder-big { font-size: 32px; line-height: 1; }
+    .placeholder-text { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
   </style>
 </head>
 <body>
@@ -504,8 +490,8 @@
       <img src="logo.png" alt="Fausse Calme">
     </a>
     <ul class="nav-links">
-      <li><a href="#collections">Collections</a></li>
-      <li><a href="#sur-mesure">Sur-mesure</a></li>
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#creations">Vos créations</a></li>
       <li><a href="#conseils">Conseils</a></li>
       <li><a href="#materiel">Matériel</a></li>
       <li><a href="#boutiques">Boutiques</a></li>
@@ -524,146 +510,185 @@
           <span class="f-serif-i softer">à voix basse.</span>
         </h1>
         <p class="intro">
-          Créations Cricut, tests, astuces et bonnes adresses.
-          Tout ce que j'aurais aimé trouver quand j'ai déballé ma machine —
-          et tout ce que je fabrique aujourd'hui.
+          La collection Fausse Calme et les créations sur-mesure réalisées dans l'atelier.
+          Plus quelques bonnes adresses et tout ce que j'apprends sur ma Cricut, en chemin.
         </p>
         <div class="hero-ctas">
-          <a href="#collections" class="btn btn-primary">Voir mes collections</a>
-          <a href="#sur-mesure" class="btn btn-ghost">Demander un devis</a>
+          <a href="#collection" class="btn btn-primary">Voir la collection</a>
+          <a href="#creations" class="btn btn-ghost">Demander un devis</a>
         </div>
       </div>
 
       <div class="hero-side">
         <div class="hero-card">
-          <img src="mug-volcan-noir.jpg" alt="Mug Volcan édition encre">
+          <img src="hoodie-fausse-calme.jpg" alt="Hoodie Fausse Calme">
           <div class="hero-card-overlay">
-            <span class="hero-card-meta">Collection Volcan</span>
+            <span class="hero-card-meta">Collection · Fausse Calme</span>
           </div>
         </div>
-        <div class="hero-side-cap">Mug Volcan · pièce</div>
+        <div class="hero-side-cap">Hoodie violet · pièce signature</div>
       </div>
     </div>
 
     <div class="ticker">
       <div class="ticker-row">
-        <span>Créations fait main</span>
+        <span>La collection</span>
         <span class="dot">·</span>
-        <span class="f-serif-i">Sur-mesure</span>
+        <span class="f-serif-i">Vos créations</span>
         <span class="dot">·</span>
-        <span>Conseils Cricut</span>
+        <span>Sur-mesure</span>
         <span class="dot">·</span>
-        <span class="f-serif-i">Bons plans français</span>
+        <span class="f-serif-i">Conseils Cricut</span>
         <span class="dot">·</span>
-        <span>Tests honnêtes</span>
+        <span>Bons plans français</span>
       </div>
     </div>
   </section>
 
-  <!-- COLLECTIONS -->
-  <section class="deep" id="collections">
+  <!-- COLLECTION FAUSSE CALME -->
+  <section class="deep" id="collection">
     <div class="sec-head">
-      <div class="eyebrow">Nº 01 · Collections</div>
-      <h2>Mes créations,<br><span class="f-serif-i" style="color: var(--w-70);">rangées par thème.</span></h2>
+      <div class="eyebrow">Nº 01 · La maison</div>
+      <h2>La collection<br><span class="f-serif-i" style="color: var(--w-70);">Fausse Calme.</span></h2>
       <p class="sec-intro">
-        Chaque collection est un univers : un motif, une émotion, une histoire.
-        Pièces fait main, parfois uniques, parfois tirées à très peu d'exemplaires.
+        Pièces signature de la maison. Sweats, hoodies, t-shirts et mugs sérigraphiés à la main,
+        autour du motif fondateur — le volcan qui paraît endormi mais bouillonne en dessous.
       </p>
     </div>
 
-    <!-- Collection Volcan -->
-    <div class="collection">
-      <div class="collection-head">
-        <div>
-          <div class="collection-meta">Capsule signature · 2024</div>
-          <div class="collection-title">Volcan.</div>
-        </div>
-        <a href="#sur-mesure" class="btn btn-ghost">Commander une pièce</a>
-      </div>
-      <p class="collection-desc">
-        Le motif fondateur de la maison Fausse Calme. Un volcan qui paraît endormi
-        mais bouillonne en dessous — comme un calme qu'on porte sur soi.
-      </p>
-      <div class="collection-grid">
-        <div class="piece">
-          <img src="sweat-volcan-aubergine.jpg" alt="Sweat Volcan édition aubergine">
-          <span class="piece-status">Sur commande</span>
-          <div class="piece-info">
-            <div class="piece-label">Sweat · capuche</div>
-            <div class="piece-name">Volcan · encre aubergine</div>
-          </div>
-        </div>
-        <div class="piece">
-          <img src="sweat-volcan-noir-blanc.jpg" alt="Sweat Volcan noir et blanc">
-          <span class="piece-status">Sur commande</span>
-          <div class="piece-info">
-            <div class="piece-label">Sweat · capuche</div>
-            <div class="piece-name">Volcan · encre claire</div>
-          </div>
-        </div>
-        <div class="piece">
-          <img src="mug-volcan-noir.jpg" alt="Mug Volcan noir">
-          <span class="piece-status">Sur commande</span>
-          <div class="piece-info">
-            <div class="piece-label">Mug · 33cl</div>
-            <div class="piece-name">Volcan · édition encre</div>
-          </div>
-        </div>
-        <div class="piece">
-          <img src="mug-volcan-blanc.jpg" alt="Mug Volcan blanc">
-          <span class="piece-status">Sur commande</span>
-          <div class="piece-info">
-            <div class="piece-label">Mug · 33cl</div>
-            <div class="piece-name">Volcan · porcelaine</div>
-          </div>
+    <div class="pieces-grid">
+      <div class="piece">
+        <img src="hoodie-fausse-calme.jpg" alt="Hoodie Fausse Calme violet">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">Hoodie · capuche</div>
+          <div class="piece-name">Hoodie violet · logo brodé</div>
         </div>
       </div>
-    </div>
 
-    <!-- Collection Dragon -->
-    <div class="collection">
-      <div class="collection-head">
-        <div>
-          <div class="collection-meta">Pop culture · 2024</div>
-          <div class="collection-title">Dragon &amp; co.</div>
+      <div class="piece">
+        <img src="sweat-fausse-calme.jpg" alt="Sweat Fausse Calme aubergine">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">Sweat · ras de cou</div>
+          <div class="piece-name">Sweat aubergine · Fausse Calme</div>
         </div>
-        <a href="#sur-mesure" class="btn btn-ghost">Commander une pièce</a>
       </div>
-      <p class="collection-desc">
-        Hommages aux univers qu'on aime, customisés au flex sur sweat noir.
-        Pièces uniques à la demande — propose ton perso, je le fabrique.
-      </p>
-      <div class="collection-grid">
-        <div class="piece">
-          <img src="sweat-dragon.jpg" alt="Sweat Dragon">
-          <span class="piece-status">Sur commande</span>
-          <div class="piece-info">
-            <div class="piece-label">Sweat · piece unique</div>
-            <div class="piece-name">Le Dragon &amp; le code</div>
-          </div>
+
+      <div class="piece">
+        <img src="sweat-faux-calme.jpg" alt="Sweat Faux Calme aubergine">
+        <span class="piece-status">Édition limitée</span>
+        <div class="piece-info">
+          <div class="piece-label">Sweat · ras de cou</div>
+          <div class="piece-name">Sweat aubergine · Faux Calme</div>
         </div>
-        <div class="upcoming">
-          <div class="upcoming-big">+</div>
-          <div class="upcoming-text">À venir</div>
+      </div>
+
+      <div class="piece">
+        <img src="tshirt-volcan-femme.jpg" alt="T-shirt Volcan femme">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">T-shirt · coupe femme</div>
+          <div class="piece-name">T-shirt Volcan · blanc</div>
         </div>
-        <div class="upcoming">
-          <div class="upcoming-big">+</div>
-          <div class="upcoming-text">À venir</div>
+      </div>
+
+      <div class="piece">
+        <img src="tshirt-volcan-homme.jpg" alt="T-shirt Volcan homme">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">T-shirt · coupe homme</div>
+          <div class="piece-name">T-shirt Volcan · blanc</div>
         </div>
-        <div class="upcoming">
-          <div class="upcoming-big">+</div>
-          <div class="upcoming-text">À venir</div>
+      </div>
+
+      <div class="piece">
+        <img src="sweat-volcan-aubergine.jpg" alt="Sweat Volcan dos aubergine">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">Sweat · capuche</div>
+          <div class="piece-name">Volcan · encre aubergine</div>
+        </div>
+      </div>
+
+      <div class="piece">
+        <img src="sweat-volcan-noir-blanc.jpg" alt="Sweat Volcan dos noir et blanc">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">Sweat · capuche</div>
+          <div class="piece-name">Volcan · encre claire</div>
+        </div>
+      </div>
+
+      <div class="piece">
+        <img src="sweat-volcan-plie.jpg" alt="Sweat Volcan plié">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">Sweat · pull</div>
+          <div class="piece-name">Volcan · noir &amp; blanc</div>
+        </div>
+      </div>
+
+      <div class="piece">
+        <img src="mug-volcan-noir.jpg" alt="Mug Volcan noir">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">Mug · 33cl</div>
+          <div class="piece-name">Volcan · édition encre</div>
+        </div>
+      </div>
+
+      <div class="piece">
+        <img src="mug-volcan-blanc.jpg" alt="Mug Volcan blanc">
+        <span class="piece-status">Sur commande</span>
+        <div class="piece-info">
+          <div class="piece-label">Mug · 33cl</div>
+          <div class="piece-name">Volcan · porcelaine</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SUR-MESURE -->
-  <section id="sur-mesure">
+  <!-- VOS CRÉATIONS (PORTFOLIO + DEVIS) -->
+  <section id="creations">
+    <div class="sec-head">
+      <div class="eyebrow">Nº 02 · Sur-mesure</div>
+      <h2>Vos créations,<br><span class="f-serif-i" style="color: var(--w-70);">faites avec vous.</span></h2>
+      <p class="sec-intro">
+        Au-delà de la collection, je crée des pièces uniques à la demande.
+        Cadeaux personnalisés, tenues d'événement, déco maison, papeterie de mariage —
+        propose-moi ton idée, je la fabrique.
+      </p>
+    </div>
+
+    <div class="pieces-grid" style="margin-bottom: 64px;">
+      <div class="piece">
+        <img src="sweat-dragon.jpg" alt="Sweat Dragon custom">
+        <span class="piece-status">Pièce unique</span>
+        <div class="piece-info">
+          <div class="piece-label">Sweat · custom</div>
+          <div class="piece-name">Le Dragon &amp; le code</div>
+        </div>
+      </div>
+      <div class="placeholder-piece">
+        <div class="placeholder-big">+</div>
+        <div class="placeholder-text">À venir</div>
+      </div>
+      <div class="placeholder-piece">
+        <div class="placeholder-big">+</div>
+        <div class="placeholder-text">À venir</div>
+      </div>
+      <div class="placeholder-piece">
+        <div class="placeholder-big">+</div>
+        <div class="placeholder-text">À venir</div>
+      </div>
+    </div>
+
+    <!-- FORMULAIRE -->
     <div class="devis-grid">
       <div class="devis-side">
-        <div class="eyebrow">Nº 02 · Sur-mesure</div>
-        <h2>Tu as un projet<br><span class="f-serif-i" style="color: var(--w-70);">en tête ?</span></h2>
+        <div class="eyebrow">Demande de devis</div>
+        <h2>Une idée<br><span class="f-serif-i" style="color: var(--w-70);">en tête ?</span></h2>
         <p>
           Sweat custom, cadeau original, déco personnalisée, papeterie d'événement…
           Je crée la pièce avec toi, fabriquée à la main dans mon atelier.
@@ -677,15 +702,14 @@
         </ul>
       </div>
 
-      <!-- FORMSPREE: Remplace mjgqvebj par ton ID après inscription sur formspree.io -->
       <form class="devis" action="https://formspree.io/f/mjgqvebj" method="POST">
         <div class="field">
           <label>Type de projet</label>
           <div class="chips">
             <label class="chip"><input type="radio" name="type" value="Sweat / textile" required>Sweat / textile</label>
             <label class="chip"><input type="radio" name="type" value="Mug / objet">Mug / objet</label>
-            <label class="chip"><input type="radio" name="type" value="Carte / papeterie">Papeterie</label>
-            <label class="chip"><input type="radio" name="type" value="Sticker / déco">Stickers / déco</label>
+            <label class="chip"><input type="radio" name="type" value="Papeterie">Papeterie</label>
+            <label class="chip"><input type="radio" name="type" value="Stickers / déco">Stickers / déco</label>
             <label class="chip"><input type="radio" name="type" value="Autre">Autre</label>
           </div>
         </div>
@@ -808,7 +832,6 @@
     </div>
 
     <div class="shop-grid">
-      <!-- Remplace les # par tes vrais liens affiliés -->
       <a href="#" target="_blank" rel="noopener noreferrer" class="product">
         <span class="product-tag">Indispensable</span>
         <div class="product-name">Cricut Maker 3</div>
@@ -816,7 +839,6 @@
         <p class="product-desc">Ma machine principale. Coupe à peu près tout, à condition de la calibrer correctement.</p>
         <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
       </a>
-
       <a href="#" target="_blank" rel="noopener noreferrer" class="product">
         <span class="product-tag">Indispensable</span>
         <div class="product-name">Crochet d'échenillage</div>
@@ -824,7 +846,6 @@
         <p class="product-desc">L'outil dont je pensais pouvoir me passer. Spoiler : non.</p>
         <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
       </a>
-
       <a href="#" target="_blank" rel="noopener noreferrer" class="product">
         <span class="product-tag">Pour débuter</span>
         <div class="product-name">Tapis StandardGrip</div>
@@ -832,7 +853,6 @@
         <p class="product-desc">Le tapis vert, polyvalent. À avoir avant tout le reste.</p>
         <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
       </a>
-
       <a href="#" target="_blank" rel="noopener noreferrer" class="product">
         <span class="product-tag">Le bon plan</span>
         <div class="product-name">Vinyle flex pack</div>
@@ -840,7 +860,6 @@
         <p class="product-desc">Un kit complet de couleurs pour débuter le flex sans se ruiner.</p>
         <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
       </a>
-
       <a href="#" target="_blank" rel="noopener noreferrer" class="product">
         <span class="product-tag">Indispensable</span>
         <div class="product-name">Presse à chaud</div>
@@ -848,7 +867,6 @@
         <p class="product-desc">Pour un transfert net du flex sur textile. Le fer à repasser, ça marche, mais pas pareil.</p>
         <div class="product-cta">Voir le produit <span class="product-arrow">↗</span></div>
       </a>
-
       <a href="#" target="_blank" rel="noopener noreferrer" class="product">
         <span class="product-tag">Astuce</span>
         <div class="product-name">Papier de transfert</div>
@@ -882,35 +900,30 @@
         <p class="shop-desc">La source, pour le matériel propriétaire et les nouveautés machine.</p>
         <span class="shop-link">Visiter <span class="shop-arrow">↗</span></span>
       </a>
-
       <a href="https://www.action.com/fr-fr/" target="_blank" rel="noopener noreferrer" class="shop">
         <div class="shop-type">Boutique · bon plan</div>
         <div class="shop-name">Action</div>
         <p class="shop-desc">Vinyles, papiers, supports déco à prix dérisoires. Je fonce dès qu'il y a un arrivage.</p>
         <span class="shop-link">Voir le rayon DIY <span class="shop-arrow">↗</span></span>
       </a>
-
       <a href="https://www.cultura.com" target="_blank" rel="noopener noreferrer" class="shop">
         <div class="shop-type">Boutique · loisirs créatifs</div>
         <div class="shop-name">Cultura</div>
         <p class="shop-desc">Pour le matériel un peu plus pointu, les rayons scrapbooking et tampons.</p>
         <span class="shop-link">Visiter <span class="shop-arrow">↗</span></span>
       </a>
-
       <a href="https://www.etsy.com" target="_blank" rel="noopener noreferrer" class="shop">
         <div class="shop-type">Boutique · fichiers</div>
         <div class="shop-name">Etsy</div>
         <p class="shop-desc">Mes fichiers SVG préférés viennent d'ici. Créatrices indé, qualité au rendez-vous.</p>
         <span class="shop-link">Mes vendeurs <span class="shop-arrow">↗</span></span>
       </a>
-
       <a href="https://www.hema.fr" target="_blank" rel="noopener noreferrer" class="shop">
         <div class="shop-type">Boutique · déco</div>
         <div class="shop-name">Hema</div>
         <p class="shop-desc">Pour les supports à customiser : mugs, totes, déco maison. Bon rapport qualité-prix.</p>
         <span class="shop-link">Visiter <span class="shop-arrow">↗</span></span>
       </a>
-
       <a href="#" target="_blank" rel="noopener noreferrer" class="shop">
         <div class="shop-type">Créatrice · à suivre</div>
         <div class="shop-name">@creatrice_a</div>
@@ -944,8 +957,8 @@
       <div class="foot-col">
         <div class="foot-title">Le site</div>
         <ul>
-          <li><a href="#collections">Collections</a></li>
-          <li><a href="#sur-mesure">Sur-mesure</a></li>
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#creations">Vos créations</a></li>
           <li><a href="#conseils">Conseils</a></li>
           <li><a href="#materiel">Matériel</a></li>
           <li><a href="#boutiques">Boutiques</a></li>
